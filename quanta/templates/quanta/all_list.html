@@ -1,0 +1,41 @@
+{% extends 'quanta/layout.html'%}
+
+{% block title %}
+    AllList
+{% endblock %}
+
+{% block body%}
+    <h2>All List</h2>
+    <!-- choosing a category will only show all the list form that category 
+        Ex. cars 
+        only all cars that are listed will show/display -->
+    <form action="{% url 'category_all_list' %}" method="POST">     
+        {% csrf_token %}
+        <label>Category:</label>
+        <select name="category" class="form-select" aria-label="Default select example" onchange='if(this.value != 0) { this.form.submit(); }'>
+            <option disabled selected value>Category Filter</option>
+            <option value="fashion">Fashion</option>
+            <option value="cars">Cars</option>
+            <option value="toys">Toys</option>
+            <option value="home">Homes</option>
+        </select>
+    </form>
+    <div class= 'row'>
+    {% for allList in all_listings %}
+        <div class="card col-sm-3" style="width: 18rem;">
+            <div class="card-header">
+                <p id="bid">Starting bid: <span id="price">{{ allList.bid.bid }}</span>
+                    by <span id="price">{{ allList.bid.user }}</span></p>
+                <p class="card-text">Last Updated at: {{ allList.update_at | timesince }} ago</p>
+            </div>
+            <img src="{{ allList.url }}" class="card-img-top" alt="Url Pictures">
+            <div class="card-body">
+              <h5 class="card-title">{{allList.item_name}}</h5>
+              <p class="card-text">{{allList.description}}</p>
+              <a href="{% url 'display_list' allList.id %}" class="btn btn-primary">View</a>
+              <p class="card-text">Created at: {{ allList.created_at }}</p>
+            </div>
+          </div>
+    {% endfor %}
+    </div>
+{% endblock%}

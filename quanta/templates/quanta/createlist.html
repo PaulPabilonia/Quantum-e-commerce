@@ -1,0 +1,43 @@
+{% extends 'quanta/layout.html'%}
+
+{% block title %}
+    CreateList
+{% endblock %}
+
+{% block body%}
+    <h2>Create List</h2>
+    <div>
+
+        <form action="{% url 'submit_listings' %}" method="POST">
+            {% csrf_token %}
+            <div>
+                <label>Title: (Required)</label>
+                <input type="text" name="item_name" class="form-control" placeholder="Name: (Maximum of 70 Characters)">
+            </div>
+            <div>
+                <label>Category:</label>
+                <select name="category" class="form-select" aria-label="Default select example">
+                    <option value="fashion">Fashion</option>
+                    <option value="cars">Cars</option>
+                    <option value="toys">Toys</option>
+                    <option value="home">Homes</option>
+                </select>
+            </div>
+            <div>
+                <label>Start Bid: (Required)</label>
+                <input type="text" class="form-control" name="bid" placeholder="Bid: (0$ to $9,999,999)">
+            </div>
+            <div>
+                <label>Description: (Required)</label>
+                <textarea rows="8" class="form-control" type="text" name="description" placeholder="Description: (Maximum of 300 characters)"></textarea>
+            </div>
+            <div>
+                <label>Image URL:</label>
+                <input type="text" class="form-control" name="url_image" placeholder="URL:">
+            </div>
+            <div>
+                <input class="btn btn-primary" type="submit">
+            </div>
+        </form>
+    </div>
+{% endblock%}

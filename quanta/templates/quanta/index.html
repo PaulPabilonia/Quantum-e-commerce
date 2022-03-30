@@ -1,0 +1,40 @@
+{% extends "quanta/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    <!-- choosing a category will only show all the active list form that category
+    Ex. cars 
+        only all cars that are listed will show/display -->
+    <form action="{% url 'category' %}" method="post">
+        {% csrf_token %}
+        <label>Choose a Category:</label>
+        <select name="category" class="form-select" aria-label="Default select example" onchange='if(this.value != 0) { this.form.submit(); }'>
+            <option disabled selected value>Category Filter</option>
+            <option value="fashion">Fashion</option>
+            <option value="cars">Cars</option>
+            <option value="toys">Toys</option>
+            <option value="home">Homes</option>
+        </select>
+        
+    </form>
+    <div class = "row">
+    {% for active_listing in active_listings %}
+        <div class="card col-sm-3" style="width: 18rem;">
+            <div class="card-header">
+                <p id="bid">Starting bid: <span id="price">{{ active_listing.starting_price }}</span>
+                    by <span id="price">{{ active_listing.owner }}</span></p>
+                <p class="card-text">Last Updated at: {{ active_listing.update_at | timesince }} ago</p>
+            </div>
+            <img class="card-img-top" src="{{ active_listing.url }}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{ active_listing.item_name}}</h5>
+                <p class="card-text">{{ active_listing.description }}</p>
+                <a href="{% url 'display_list' active_listing.id %}" class="btn btn-primary">view</a>
+                <p class="card-text">Created at: {{ active_listing.created_at }}</p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

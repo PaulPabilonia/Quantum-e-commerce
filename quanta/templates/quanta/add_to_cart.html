@@ -1,0 +1,27 @@
+{% extends 'quanta/layout.html'%}
+
+{% block title %}
+    Add To Cart
+{% endblock %}
+
+{% block body%}
+    <h2>Add To Cart</h2>
+    <div class = "row">
+        {% for user_listings in user_add_to_cart %}
+            <div class="card col-sm-3" style="width: 18rem;">
+                <div class="card-header">
+                    <p id="bid">Starting bid: <span id="price">{{ user_listings.bid.bid }}</span>
+                        by <span id="price">{{ user_listings.bid.user }}</span></p>
+                    <p class="card-text">Last Updated at: {{ user_listings.update_at | timesince }} ago</p>
+                </div>
+                <img class="card-img-top" src="{{ user_listings.url }}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ user_listings.item_name}}</h5>
+                    <p class="card-text">{{ user_listings.description }}</p>
+                    <a href="{% url 'display_list' user_listings.id %}" class="btn btn-primary">view</a>
+                    <p class="card-text">Created at: {{ user_listings.created_at }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+{% endblock%}
