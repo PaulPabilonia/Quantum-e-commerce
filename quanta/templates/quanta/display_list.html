@@ -1,4 +1,5 @@
 {% extends 'quanta/layout.html' %}
+{% load static %}
 
 {% block title %}
     Display
@@ -19,7 +20,11 @@
         <div class="card">
             <div class="card-body">
             <h5 class="card-title"> Title: {{ listing.item_name}}</h5>
-            <img src="{{ listing.url }}" class="img-fluid rounded-start" alt=" Url Image ">
+            {% if listing.product_img %}
+            <img src="{{ listing.product_img.url }}" class="img-fluid rounded-start" alt="Url Pictures">
+            {% else %}
+            <img src="{% static './quanta/images/background-logo.svg' %}" alt="Admin"class="img-fluid rounded-start" >
+            {% endif %}
             <p class="card-text">Description:<br> {{ listing.description }}</p>
             </div>
         </div>
@@ -32,7 +37,7 @@
                 <p id="bid">Starting Price: <span id="price" style="color: green;">${{ listing.starting_price}}</span>
                     from <span id="price">{{ listing.owner }}</span></p>
                 <p id="bid">Current Bid: <span id="current_bid" style="color: green;">${{ listing.starting_price }}</span>
-                    from <span id="current_user">{{ listing.user }}</span></p>
+                    from <span id="current_user">{{ listing.owner }}</span></p>
 
                 <!-- closed_auction button -->
                 {% if user.is_authenticated %}<!--User is logged in-->
@@ -42,19 +47,19 @@
                         <p class="card-text"><small class="text-muted">List is still active!</small></p>
                         <button type="button"class="btn btn-success" disabled> Auction Active! </button>
                     {% else %}
-                        <h4 style="color: red;">CLOSED!</h4>
-                        {% if user == listing.user %}
-                            <p style="color: green;">Congratulations! {{listing.user}}, You Won the Auction! </p>
+                        <h4 style="color: red;">Out of Stock!</h4>
+                        {% if user == listing.owner %}
+                            <p style="color: green;">Congratulations! {{listing.owner}}, You Won the Auction! </p>
                         {% else %}
-                            <p style="color: green;">{{listing.user}}, Won the Auction! </p>
+                            <p style="color: green;">{{listing.owner}}, Won the Auction! </p>
                         {% endif %}
-                        <button type="button"class="btn btn-warning" disabled> Auction Closed! </button>
+                        <button type="button"class="btn btn-warning" disabled> Sold Out! </button>
                     {% endif %}
                 
                 {% else %}<!--User is not logged in-->
                     {% if listing.is_closed == True %}
-                        <h4 style="color: red;">CLOSED!</h4>
-                        <button type="button"class="btn btn-warning" disabled> Auction Closed! </button>
+                        <h4 style="color: red;">Out of Stock!</h4>
+                        <button type="button"class="btn btn-warning" disabled> Sold Out! </button>
                     {% else %}
                         <p class="card-text"><small class="text-muted">Login or Register to add add_to_cart</small></p>
                         <button type="button"class="btn btn-success" disabled> Auction Active! </button>
@@ -72,6 +77,7 @@
                     <button type="button"class="btn btn-primary" disabled>+add_to_cart </button>
                 {% endif %}
                 <p class="card-text"><small class="text-muted">Last updated: {{ listing.update_at | timesince }} ago</small></p>
+                
                 </div>
             </div>
             Place bid Card

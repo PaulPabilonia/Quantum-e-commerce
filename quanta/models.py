@@ -1,4 +1,3 @@
-from django.conf.urls import url
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.fields import BLANK_CHOICE_DASH
@@ -14,7 +13,7 @@ class ShoppingList(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE,related_name="shoppinglist",default=None)
     item_name = models.CharField(max_length=100)
     description = models.CharField(max_length=300)
-    url = models.CharField(max_length=800)
+    product_img = models.ImageField(null=True, blank = True, upload_to = "images/")
     starting_price = models.IntegerField(default=0)
     category = models.CharField(max_length=20)
     #blank = true / basically it accepts even it is blank or empty it simple means it is not required

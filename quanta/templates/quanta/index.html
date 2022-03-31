@@ -26,10 +26,13 @@
                     by <span id="price">{{ active_listing.owner }}</span></p>
                 <p class="card-text">Last Updated at: {{ active_listing.update_at | timesince }} ago</p>
             </div>
-            <img class="card-img-top" src="{{ active_listing.url }}" alt="Card image cap">
+            {% if active_listing.product_img %}
+            <img src="{{ active_listing.product_img.url }}" class="card-img-top" alt="Url Pictures">
+            {% else %}
+            <img src="{% static './quanta/images/background-logo.svg' %}" alt="Admin"class="card-img-top"  width="150">
+            {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{ active_listing.item_name}}</h5>
-                <p class="card-text">{{ active_listing.description }}</p>
                 <a href="{% url 'display_list' active_listing.id %}" class="btn btn-primary">view</a>
                 <p class="card-text">Created at: {{ active_listing.created_at }}</p>
             </div>

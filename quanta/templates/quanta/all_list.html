@@ -1,4 +1,5 @@
 {% extends 'quanta/layout.html'%}
+{% load static %}
 
 {% block title %}
     AllList
@@ -24,16 +25,19 @@
     {% for allList in all_listings %}
         <div class="card col-sm-3" style="width: 18rem;">
             <div class="card-header">
-                <p id="bid">Starting bid: <span id="price">{{ allList.bid.bid }}</span>
-                    by <span id="price">{{ allList.bid.user }}</span></p>
-                <p class="card-text">Last Updated at: {{ allList.update_at | timesince }} ago</p>
+                <p id="bid">Price: $<span id="price">{{ allList.starting_price }}</span>
+                    by <span id="price">{{ allList.owner }}</span></p>
+                <p class="card-text"><small class="text-muted">Last Updated at: {{ allList.update_at | timesince }} ago</small></p>
             </div>
-            <img src="{{ allList.url }}" class="card-img-top" alt="Url Pictures">
+            {% if allList.product_img %}
+            <img src="{{ allList.product_img.url }}" class="card-img-top" alt="Url Pictures">
+            {% else %}
+            <img src="{% static './quanta/images/background-logo.svg' %}" alt="Admin"class="rounded-circle" width="150">
+            {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{allList.item_name}}</h5>
-              <p class="card-text">{{allList.description}}</p>
               <a href="{% url 'display_list' allList.id %}" class="btn btn-primary">View</a>
-              <p class="card-text">Created at: {{ allList.created_at }}</p>
+              <p class="card-text"><small class="text-muted">Created at: {{ allList.created_at }}</small></p>
             </div>
           </div>
     {% endfor %}

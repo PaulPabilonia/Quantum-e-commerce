@@ -1,5 +1,4 @@
 #for creating and logging user
-from django.conf.urls import url
 from django.contrib.auth import authenticate, login, logout
 #intergrityerror for no ducplicate or repeated user
 from django.db import IntegrityError
@@ -36,11 +35,11 @@ def submit_listings(request):
         user = request.user #this reference the object in User model
         category = request.POST['category']
         description = request.POST['description']
-        url_image = request.POST['url_image']
+        product_img = request.FILES.get('product_img')
  
         starting_price = request.POST['bid'] #we are storing first bid to the starting price
         listing = ShoppingList(item_name=item_name,description=description, owner=user,
-        starting_price = starting_price, is_closed = False, url = url_image, category = category)
+        starting_price = starting_price, is_closed = False, product_img = product_img, category = category)
         listing.save()
     
         return HttpResponseRedirect(reverse("index"))

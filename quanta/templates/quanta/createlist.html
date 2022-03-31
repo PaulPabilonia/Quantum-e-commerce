@@ -7,8 +7,7 @@
 {% block body%}
     <h2>Create List</h2>
     <div>
-
-        <form action="{% url 'submit_listings' %}" method="POST">
+        <form class="" action="{% url 'submit_listings' %}" method="POST" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             <div>
                 <label>Title: (Required)</label>
@@ -32,8 +31,12 @@
                 <textarea rows="8" class="form-control" type="text" name="description" placeholder="Description: (Maximum of 300 characters)"></textarea>
             </div>
             <div>
-                <label>Image URL:</label>
-                <input type="text" class="form-control" name="url_image" placeholder="URL:">
+                <div class="col-sm-4 mt-3">
+                    <div class="form-group">
+                      <label for="exampleFormControlFile1">Product Image</label>
+                      <input class="form-control" type="file" id="formFile" name="product_img"> 
+                    </div>
+                  </div>
             </div>
             <div>
                 <input class="btn btn-primary" type="submit">
