@@ -53,7 +53,7 @@ def submit_listings(request):
         starting_price = starting_price, is_closed = False, product_img = product_img, category = category)
         listing.save()
     
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("quanta_home"))
         #the user will return to the index after they submit it otherwise
     #they will remain to the creatlist page
     return render(request, "quanta/createlist.html")

@@ -6,8 +6,7 @@ Add To Cart
 {% endblock %}
 
 {% block body%}
-<h2>My Cart</h2>
-<div class="row">
+<!-- <div class="row">
     {% for user_listings in user_add_to_cart %}
     <div class="card col-sm-3" style="width: 18rem;">
         <div class="card-header">
@@ -28,5 +27,36 @@ Add To Cart
         </div>
     </div>
     {% endfor %}
-</div>
+</div> -->
+<section id="services" class="section">
+    <div class="container">
+      <div class="section-header">          
+        <h2 class="section-title">My Cart</h2>
+        <span>Quanta!</span>
+        <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy</p>
+      </div>
+
+      <div class="row">
+        {% for active_listing in user_add_to_cart %}
+        <div class="col-lg-4 col-md-6 col-xs-12">
+          <div class="item-boxes services-item wow fadeInDown" data-wow-delay="0.2s">
+            <div class="icon color-1">
+                {% if active_listing.product_img %}
+                <img src="{{ active_listing.product_img.url }}" class="" alt="Url Pictures" width="200"
+                    height="200">
+                {% else %}
+                <img src="{% static './quanta/images/background-logo.svg' %}" alt="Admin" class="" width="200" height="200">
+                {% endif %}
+            </div>
+            <h4>{{ active_listing.item_name}}</h4>
+            <p>Created at: {{ active_listing.created_at }}</p>
+            <a href="{% url 'display_list' active_listing.id %}" class="btn btn-primary mr-2">view</a>
+            <a class="btn btn-danger" >Add to cart</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </section>
 {% endblock%}
