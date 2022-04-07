@@ -17,5 +17,7 @@ urlpatterns = [
     path("add_add_to_cart/<int:listing_id>", views.add_add_to_cart, name = "add_add_to_cart"),
     path("remove_add_to_cart/<int:listing_id>",views.remove_add_to_cart,name="remove_add_to_cart"),
     path("closed_auction/<int:listing_id>",views.closed_auction,name="closed_auction"),
-    path("add_comment/<int:listing_id>",views.add_comment,name="add_comment")
+    path("add_comment/<int:listing_id>",views.add_comment,name="add_comment"),
+    path("quanta_home",views.quanta_home,name="quanta_home"),
+
 ]

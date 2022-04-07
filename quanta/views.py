@@ -21,6 +21,17 @@ def index(request):
     is_closed = False means it is still active
     """
     active_listings = ShoppingList.objects.filter(is_closed=False)
+    return render(request, "quanta/home.html",{
+            "active_listings": active_listings
+        })
+
+def quanta_home(request):
+    """
+    ShoppingList.object.filter it filter all the listings
+    in the database that is active meaning the listing is still open for bidding
+    is_closed = False means it is still active
+    """
+    active_listings = ShoppingList.objects.filter(is_closed=False)
     return render(request, "quanta/index.html",{
             "active_listings": active_listings
         })
