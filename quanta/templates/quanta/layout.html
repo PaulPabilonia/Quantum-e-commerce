@@ -36,7 +36,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto w-100 justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="{% url 'index' %}">Home</a>
+                        <a class="nav-link page-scroll" href="{% url 'index' %}">Quantum</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'quanta_home' %}">Active Listings</a>
@@ -46,7 +46,7 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'add_to_cart' %}">Add To Cart</a>
+                        <a class="nav-link" href="{% url 'add_to_cart' %}">My Cart</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'createlist' %}">Creatinglist</a>

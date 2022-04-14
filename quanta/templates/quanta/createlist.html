@@ -1,46 +1,49 @@
 {% extends 'quanta/layout.html'%}
 
 {% block title %}
-    CreateList
+CreateList
 {% endblock %}
 
 {% block body%}
+
+<div class="container">
     <h2>Create List</h2>
-    <div>
-        <form class="" action="{% url 'submit_listings' %}" method="POST" enctype="multipart/form-data" novalidate>
-            {% csrf_token %}
-            <div>
-                <label>Title: (Required)</label>
-                <input type="text" name="item_name" class="form-control" placeholder="Name: (Maximum of 70 Characters)">
+    <form class="" action="{% url 'submit_listings' %}" method="POST" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <div>
+            <label>Title: (Required)</label>
+            <input type="text" name="item_name" class="form-control" placeholder="Name: (Maximum of 70 Characters)">
+        </div>
+        <div>
+            <select name="category" class="form-select custom-select col-md-3" aria-label="Default select example">
+                <option disabled selected value>Select Category</option>
+                <option value="fashion">Fashion</option>
+                <option value="cars">Cars</option>
+                <option value="toys">Toys</option>
+                <option value="home">Homes</option>
+            </select>
+        </div>
+        <div>
+            <label>Product Price: (Required)</label>
+            <input type="text" class="form-control" name="bid" placeholder="Price Range: (0$ to $9,999,999)">
+        </div>
+        <div>
+            <label>Description: (Required)</label>
+            <textarea rows="8" class="form-control" type="text" name="description"
+                placeholder="Description: (Maximum of 300 characters)"></textarea>
+        </div>
+        <div>
+            <div class="col-sm-4 mt-3">
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Product Image</label>
+                    <input class="form-control" type="file" id="formFile" name="product_img">
+                </div>
             </div>
-            <div>
-                <label>Category:</label>
-                <select name="category" class="form-select" aria-label="Default select example">
-                    <option value="fashion">Fashion</option>
-                    <option value="cars">Cars</option>
-                    <option value="toys">Toys</option>
-                    <option value="home">Homes</option>
-                </select>
-            </div>
-            <div>
-                <label>Start Bid: (Required)</label>
-                <input type="text" class="form-control" name="bid" placeholder="Bid: (0$ to $9,999,999)">
-            </div>
-            <div>
-                <label>Description: (Required)</label>
-                <textarea rows="8" class="form-control" type="text" name="description" placeholder="Description: (Maximum of 300 characters)"></textarea>
-            </div>
-            <div>
-                <div class="col-sm-4 mt-3">
-                    <div class="form-group">
-                      <label for="exampleFormControlFile1">Product Image</label>
-                      <input class="form-control" type="file" id="formFile" name="product_img"> 
-                    </div>
-                  </div>
-            </div>
-            <div>
-                <input class="btn btn-primary" type="submit">
-            </div>
-        </form>
-    </div>
+        </div>
+        
+        <div>
+            <input class="btn btn-primary" type="submit">
+        </div>
+    </form>
+</div>
 {% endblock%}

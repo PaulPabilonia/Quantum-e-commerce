@@ -68,10 +68,9 @@
 
     <form action="{% url 'category' %}" method="post">
         {% csrf_token %}
-        <label>Choose a Category:</label>
-        <select name="category" class="form-select" aria-label="Default select example"
+        <select name="category" class="form-select custom-select col-md-3"
             onchange='if(this.value != 0) { this.form.submit(); }'>
-            <option disabled selected value>Category Filter</option>
+            <option disabled selected value>Select Category</option>
             <option value="fashion">Fashion</option>
             <option value="cars">Cars</option>
             <option value="toys">Toys</option>
