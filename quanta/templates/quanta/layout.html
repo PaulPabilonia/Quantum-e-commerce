@@ -17,18 +17,24 @@
     <link rel="stylesheet" href="/static/quanta/css/responsive.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="{% static 'quanta/styles.css' %}" rel="stylesheet">
+    <link href="/static/quanta/styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.3.1/css/all.css'>
     {% block head %}
     {% endblock %}
 
 </head>
 
 <body>
+    {% include 'quanta/messages.html' %}
     <nav class="navbar navbar-expand-md fixed-top scrolling-navbar bg-white">
         <div class="container">
-            <a class="navbar-brand" href="index.html"><span><img src="/static/quanta/img/Logo Black Small.svg"
-                        alt=""></span></a>
+            <a class="navbar-brand" href="index.html">
+                <span>
+                    <img src="/static/quanta/img/Logo Black Small.svg" alt="">
+                </span>
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="lni-menu"></i>
@@ -55,12 +61,8 @@
                         <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                     </li>
                     {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
-                    </li>
+                    <li><a type="button" class="nav-link" data-toggle="modal" data-target="#loginModal">Login</a></li>
+                    <li><a type="button" class="nav-link" data-toggle="modal" data-target="#signModal">Sign up</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -74,7 +76,165 @@
     </section>
 
 
+    <!-- login modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <button type="button" class="close" data-dismiss="modal" id="x_button" aria-label="Close">
+                        <span id="x_button" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-title text-center">
+                        <!-- <h4>Login</h4> -->
+                        <h1 class="logo">
+                            <a href="{% url 'index' %}">
+                                <img src="/static/quanta/img/Logo Black Small.svg" alt="" alt="LOGO"
+                                    style="height: 100px;" class="img-fluid">
+                            </a>
+                        </h1>
+                    </div>
+                    <div class="d-flex flex-column text-center">
+                        {% include 'quanta/messages.html' %}
+                        <form action="{% url 'login' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input autofocus class="form-control" type="text" name="username"
+                                    placeholder="Username">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="password" name="password" placeholder="Password">
+                            </div>
+                            <input class="btn btn-primary btn-block btn-round btns" type="submit" value="Login">
+                        </form>
 
+                        <div class="text-center text-muted delimiter">or use a social network</div>
+                        <div class="d-flex justify-content-center social-buttons">
+                            <button type="button" class="btn btn-secondary btn-round btns" data-toggle="tooltip"
+                                data-placement="top" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </button>
+                            <button type="button" class="btn btn-secondary btn-round btns" data-toggle="tooltip"
+                                data-placement="top" title="Facebook">
+                                <i class="fab fa-facebook"></i>
+                            </button>
+                            <button type="button" class="btn btn-secondary btn-round btns" data-toggle="tooltip"
+                                data-placement="top" title="Linkedin">
+                                <i class="fab fa-instagram"></i>
+                            </button>
+                            </di>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <div class="signup-section">No account yet? <a type="button" data-dismiss="modal"
+                            data-toggle="modal" data-target="#signModal" class="text-primary"> Sign Up</a>
+                        <div class="signup-section d-flex justify-content-center"><a type="button" href="#"
+                                class="text-primary"> <small>Forgot Password</small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of login modal   -->
+
+    <!-- signup modal -->
+    <div class="modal fade" id="signModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <button type="button" class="close" data-dismiss="modal" id="x_button" aria-label="Close">
+                        <span id="x_button" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-title text-center">
+                        <h1 class="logo">
+                            <a href="{% url 'index' %}">
+                                <img src="/static/quanta/img/Logo Black Small.svg" alt="" alt="LOGO"
+                                    style="height: 100px;" class="img-fluid">
+                            </a>
+                        </h1>
+                    </div>
+                    <div class="form-row">
+
+                        <h2 class="card_title">Sign Up</h2>
+                    </div>
+                    {% include 'quanta/messages.html' %}
+                    <form class="row g-3 needs-validation" action="{% url 'register' %}" method="POST"
+                        enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+                            <label for="validationServerUsername" class="form-label">Username</label>
+                            <div class="input-group has-validation">
+                                <input type="text" name="username" class="form-control " id="validationServerUsername"
+                                    aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback"
+                                    value="{{ username }}" required>
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                    Please choose a username.
+                                </div>
+                            </div>
+                        
+                            <label for="validationServer01" class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control " id="validationServer01"
+                                value="{{ email }}" required>
+
+                            <!-- <div class="valid-feedback">
+                                Looks good!
+                            </div> -->
+                        
+                            <label for="validationServer02" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" id="validationServer02"
+                                value="{{ password }}" required>
+                            <!-- <div class="valid-feedback">
+                                Looks good!
+                            </div> -->
+                        
+                            <label for="validationServer02" class="form-label">Confirmation Password</label>
+                            <input type="password" class="form-control" name="confirmation" id="validationServer02"
+                                value="{{ password }}" required>
+                            <!-- <div class="valid-feedback">
+                                Looks good!
+                            </div> -->
+                       
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">Choose Profile</label>
+                                <input class="form-control" type="file" id="formFile" name="profile_img">
+                            </div>
+                        
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck3"
+                                    aria-describedby="invalidCheck3Feedback" required>
+                                <label class="form-check-label" for="invalidCheck3">
+                                    Agree to terms and conditions
+                                </label>
+                                <div id="invalidCheck3Feedback" class="invalid-feedback">
+                                    You must agree before submitting.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-3" align="center">
+                            <input class="btn btn-primary" type="submit" value="Sign Up">
+                        </div>
+                        <div class="col-12 mt-3" align="center">
+                            <div class="signup-section">Already have an account? <a type="button" data-dismiss="modal"
+                                    data-toggle="modal" data-target="#loginModal" class="text-primary"> Log In here.</a>
+                                <div class="signup-section d-flex justify-content-center">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end of sign-up modal   -->
     <footer>
         <!-- Footer Area Start -->
         <section class="footer-Content">
@@ -194,6 +354,7 @@
     <script src="/static/quanta/js/form-validator.min.js"></script>
     <script src="/static/quanta/js/contact-form-script.js"></script>
     <script src="/static/quanta/js/main.js"></script>
+    <script src="{% static 'quanta/app.js' %}"></script>
 </body>
 
 </html>

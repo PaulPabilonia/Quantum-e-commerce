@@ -194,13 +194,13 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
+            messages.success(request, "Login Successfully!")
             return HttpResponseRedirect(reverse("quanta_home"))
         else:
-            return render(request, "quanta/login.html", {
-                "message": "Invalid username and/or password."
-            })
+            messages.error(request, "Invalid username and/or password!")
+            return HttpResponseRedirect(reverse('quanta_home'))
     else:
-        return render(request, "quanta/login.html")
+        return render(request, "quanta/index.html")
 
 
 def logout_view(request):
@@ -216,23 +216,34 @@ def register(request):
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
+
         if password != confirmation:
-            return render(request, "quanta/register.html", {
-                "message": "Passwords must match."
-            })
+            messages.error(request, "Password Must Match")
+            return render(
+                request, "qunata/index.html", {
+                    "username": username,
+                    "email": email,
+                })
 
         # Attempt to create new user
         try:
             user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError:
-            return render(request, "quanta/register.html", {
-                "message": "Username already taken."
-            })
-        login(request, user)
-        return HttpResponseRedirect(reverse("quanta_home"))
+            messages.error(request, "Username Already taken!")
+            return render(
+                request, "quanta/index.html", {
+                    "username": username,
+                    "email": email,
+                })
+        user = authenticate(request, username=username, password=password)
+        # Check if authentication successful
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Registered Successfully!")
+            return HttpResponseRedirect(reverse("quanta_home"))
     else:
-        return render(request, "quanta/register.html")
+        return render(request, "quanta/index.html")
 
 
 

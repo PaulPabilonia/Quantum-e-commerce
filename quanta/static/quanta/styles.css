@@ -6,3 +6,65 @@ body {
     height: 15vw !important;
     object-fit: cover !important;
 }
+/*--------------------------------------------------------------
+# messages modal
+--------------------------------------------------------------*/
+.headercolorsuccess{
+	background-color: #47C9A2;
+}
+.headercolorerror{
+	background-color: #E85E6C;
+}
+.checkicon img{
+	width: 95px;
+	margin: auto;
+}
+.icon{
+	justify-content: center;
+	padding: 20px;
+}
+.btnsuccess{
+	background-color: #47C9A2;
+	color: #fff;
+}
+.btn-check:focus+.btn, .btn:focus {
+	box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.432);
+  }
+.btnerror{
+	background-color: #E85E6C;
+	color: #fff;
+}
+/*--------------------------------------------------------------
+# login modal
+--------------------------------------------------------------*/
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 400px;
+  }
+  .modal-dialog .modal-content {
+    padding: 1rem;
+  }
+}
+.modal-header .close {
+  margin-top: -1.5rem;
+}
+
+.form-title {
+  margin: -2rem 0rem 2rem;
+}
+
+.btn-round {
+  border-radius: 3rem;
+}
+
+.delimiter {
+  padding: 1rem;
+}
+
+.social-buttons .btns {
+  margin: 0 0.5rem 1rem;
+}
+
+.signup-section {
+  padding: 0.3rem 0rem;
+}
