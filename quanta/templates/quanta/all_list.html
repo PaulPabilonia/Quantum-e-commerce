@@ -6,12 +6,13 @@ AllList
 {% endblock %}
 
 {% block body%}
-<div class="container">
-  <h2>All List</h2>
+{% include 'quanta/all_products.html' %}
+<!-- <div class="container">
+  <h2>All List</h2> -->
   <!-- choosing a category will only show all the list form that category 
         Ex. cars 
         only all cars that are listed will show/display -->
-  <form action="{% url 'category_all_list' %}" method="POST">
+  <!-- <form action="{% url 'category_all_list' %}" method="POST">
     {% csrf_token %}
     <select name="category" class="form-select custom-select col-md-3" aria-label="Default select example"
       onchange='if(this.value != 0) { this.form.submit(); }'>
@@ -21,7 +22,7 @@ AllList
       <option value="toys">Toys</option>
       <option value="home">Homes</option>
     </select>
-  </form>
+  </form> -->
   <!-- <div class= 'row'>
     {% for allList in all_listings %}
         <div class="card col-sm-3" style="width: 18rem;">
@@ -44,15 +45,15 @@ AllList
     {% endfor %}
     </div> -->
 
-  <section id="services" class="section">
+  <!-- <section id="services" class="section">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">Products</h2>
         <span>Shop now!</span>
         <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy</p>
-      </div>
-
-      <div class="row">
+      </div> -->
+      <!--Card product-->
+      <!-- <div class="row">
         {% for active_listing in all_listings %}
         <div class="col-lg-4 col-md-6 col-xs-12">
           <div class="item-boxes services-item wow fadeInDown" data-wow-delay="0.2s">
@@ -71,9 +72,9 @@ AllList
           </div>
         </div>
         {% endfor %}
-      </div>
-
-    </div>
+      </div> -->
+      <!--Card product-->
+    <!-- </div>
   </section>
-</div>
+</div> -->
 {% endblock%}

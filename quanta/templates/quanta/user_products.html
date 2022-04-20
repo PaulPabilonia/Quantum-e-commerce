@@ -1,0 +1,55 @@
+{% extends "quanta/layouts.html" %}
+{% load static %}
+{% block head %}
+{% endblock %}
+{% block body %}
+
+<!-- choosing a category will only show all the active list form that category
+    Ex. cars 
+        only all cars that are listed will show/display -->
+{% include 'quanta/messages.html' %}
+<div class="container">
+      <div class="container">
+        <div class="section-header">          
+          <h2 class="section-title">My Products</h2>
+          <span>Quanta!</span>
+          <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy</p>
+        </div>
+
+            <div class="row">
+                {% for active_listing in listing %}
+                <div class="col-lg-4 col-md-6 col-xs-12">
+                    <div class="item-boxes services-item wow fadeInDown" data-wow-delay="0.2s">
+                        <div class="icon color-1">
+                            {% if active_listing.product_img %}
+                            <img src="{{ active_listing.product_img.url }}" class="" alt="Url Pictures" width="200"
+                                height="200">
+                            {% else %}
+                            <img src="{% static './quanta/images/background-logo.svg' %}" alt="Admin" class=""
+                                width="200">
+                            {% endif %}
+                        </div>
+                        <h4>{{ active_listing.item_name }}</h4>
+                        <p>Created at: {{ active_listing.created_at }}</p>
+                        <a href="{% url 'display_list' active_listing.id %}" class="btn btn-primary mr-2">view</a>
+                        <!-- add_to_cart buttons -->
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'remove_add_to_cart' active_listing.id %}" class="btn btn-dark">- add to
+                            cart</a>
+                        {% elif user.is_authenticated %}
+                        <a href="{% url 'add_add_to_cart' active_listing.id %}" class="btn btn-primary">+ add to
+                            cart</a>
+                        {% else %}
+                        <button type="button" class="btn btn-primary" disabled>+ add to cart</button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+</div>
+
+</div>
+{% endblock %}

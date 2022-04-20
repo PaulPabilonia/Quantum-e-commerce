@@ -32,7 +32,7 @@ def quanta_home(request):
     is_closed = False means it is still active
     """
     active_listings = ShoppingList.objects.filter(is_closed=False)
-    return render(request, "quanta/index.html",{
+    return render(request, "quanta/home_page.html",{
             "active_listings": active_listings
         })
 
@@ -65,7 +65,7 @@ def category(request):
         #This will filter all the active list becuase of the boolean object is_close
         active_listings = ShoppingList.objects.filter(is_closed=False,category=chosen_category)
         
-        return render(request, "quanta/index.html",{
+        return render(request, "quanta/home_page.html",{
             "active_listings": active_listings
         })
 
@@ -147,6 +147,18 @@ def closed_auction(request, listing_id):
     
     return HttpResponseRedirect(reverse('display_list', args=[listing_id]))
 
+# add profile to model
+def view_profile(request):
+    user = request.user
+    print(user)
+    listing = ShoppingList.objects.filter(owner = user)
+    return render(request, "quanta/profile_page.html",{"listing":listing})
+
+def user_products(request):
+    user = request.user
+    print(user)
+    listing = ShoppingList.objects.filter(owner = user)
+    return render(request, "quanta/my_products.html",{"listing":listing})
 # def place_bid(request,listing_id):
 #     if request.method == 'POST':
 #         listing = ShoppingList.objects.get(pk= listing_id)

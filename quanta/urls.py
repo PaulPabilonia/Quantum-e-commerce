@@ -19,5 +19,7 @@ urlpatterns = [
     path("closed_auction/<int:listing_id>",views.closed_auction,name="closed_auction"),
     path("add_comment/<int:listing_id>",views.add_comment,name="add_comment"),
     path("quanta_home",views.quanta_home,name="quanta_home"),
+    path("view_profile",views.view_profile,name="view_profile"),
+    path("user_products",views.user_products,name="user_products"),
 
 ]
