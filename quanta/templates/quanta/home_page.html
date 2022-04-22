@@ -1,11 +1,6 @@
 {% load static %}
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang="">
-<!--<![endif]-->
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -14,8 +9,8 @@
     <meta name="description" content="Quanta - HTML5 Home Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
-    <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
+    <link rel="apple-touch-icon" href="/static/quanta/img/Logo White Small.svg">
+    <link rel="shortcut icon" href="/static/quanta/img/Logo White Small.svg">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
@@ -29,7 +24,8 @@
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
     <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
-
+    <!-- Font Awesome CSS -->
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.3.1/css/all.css'>
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
     <link href="/static/quanta/styles.css" rel="stylesheet">
@@ -89,36 +85,50 @@
                     </li>
                     <li class="menu-title">Shop Now</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="{% url 'quanta_home' %}"> <i class="menu-icon fa fa-cogs"></i>Active Products</a>
+                        <a href="{% url 'quanta_home' %}"> <i class="menu-icon fa fa-tag"></i>Active Products</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="{% url 'all_list' %}" class="dropdown-toggle"> <i class="menu-icon fa fa-table"></i>All
+                        <a href="{% url 'all_list' %}" class="dropdown-toggle"> <i class="menu-icon fa fa-tags"></i>All
                             Products</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="{% url 'createlist' %}"> <i class="menu-icon fa fa-th"></i>Add Products</a>
+                        <a href="{% url 'createlist' %}"> <i class="menu-icon fa fa-plus"></i>Add Products</a>
                     </li>
 
-                    <li class="menu-title">Acount Details</li><!-- /.menu-title -->
-
+                    
+                    {% if user.is_authenticated %}
+                    <li class="menu-title">Acount Details </li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="{% url 'view_profile' %}"> <i class="menu-icon fa fa-tasks"></i>My Profile</a>
+                        <a href="{% url 'view_profile' %}"> <i class="menu-icon fa fa-user"></i>My Profile</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="{% url 'add_to_cart' %}"> <i class="menu-icon ti-email"></i>My Favorites</a>
+                        <a href="{% url 'add_to_cart' %}"> <i class="menu-icon far fa-heart"></i>My Favorites</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="{% url 'add_to_cart' %}"><i class="menu-icon fa fa-bar-chart"></i>My Products</a>
-
+                        <a href="{% url 'add_to_cart' %}"><i class="menu-icon fa fa-store"></i>My Products</a>
                     </li>
-
                     <li class="menu-item-has-children dropdown">
-                        <a href="{% url 'add_to_cart' %}"> <i class="menu-icon fa fa-area-chart"></i>My Cart</a>
+                        <a href="{% url 'add_to_cart' %}"><i class="menu-icon fas fa-cart-plus"></i>My Cart</a>
                     </li>
                     <li class="menu-title">-------------------------------------------</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="{% url 'logout' %}"> <i class="menu-icon fa fa-glass"></i>Logout</a>
+                        <a href="{% url 'logout' %}"> <i class="menu-icon fa fa-reply"></i>Logout</a>
                     </li>
+                    {% else %}
+                    <li class="menu-title">Acount Details <span class="badge badge-danger">Login In First!</span></li><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" style="cursor: not-allowed; "><i class="menu-icon fa fa-user"></i>My Profile</a>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" style=" cursor: not-allowed;"><i class="menu-icon far fa-heart"></i>My Favorites</a>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" style="cursor: not-allowed;"> <i class="menu-icon fa fa-store"></i>My Products</a>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" style="cursor: not-allowed;"> <i class="menu-icon fas fa-cart-plus"></i>My Cart</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -335,91 +345,26 @@
             </div>
             <!-- .animated -->
 
-
+            <div>
+                {% include 'quanta/index.html' %}
+            </div>
         </div>
         <!-- /.content -->
 
-        {% include 'quanta/index.html' %}
-        <!--products-->
-        <!-- <div class="container">
-            <h2>Active Listings</h2>
-
-            <form action="{% url 'category' %}" method="post">
-                {% csrf_token %}
-                <select name="category" class="form-select custom-select col-md-3"
-                    onchange='if(this.value != 0) { this.form.submit(); }'>
-                    <option disabled selected value>Select Category</option>
-                    <option value="fashion">Fashion</option>
-                    <option value="cars">Cars</option>
-                    <option value="toys">Toys</option>
-                    <option value="home">Homes</option>
-                </select>
-
-            </form>
-            <section id="services" class="section">
-                <div class="container">
-                    <div class="section-header">
-                        <h2 class="section-title">Products</h2>
-                        <span>Shop now!</span>
-                        <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-                            nonummy
-                        </p>
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-inner bg-white">
+                <div class="row">
+                    <div class="col-sm-6">
+                        Copyright &copy; 2018 Ela Admin
                     </div>
-
-                    <div class="row">
-                        {% for active_listing in active_listings %}
-                        <div class="col-lg-4 col-md-6 col-xs-12">
-                            <div class="item-boxes services-item wow fadeInDown" data-wow-delay="0.2s">
-                                <div class="icon color-1">
-                                    {% if active_listing.product_img %}
-                                    <img src="{{ active_listing.product_img.url }}" class="" alt="Url Pictures"
-                                        width="200" height="200">
-                                    {% else %}
-                                    <img src="{% static './quanta/images/background-logo.svg' %}" alt="Admin" class=""
-                                        width="200">
-                                    {% endif %}
-                                </div>
-                                <h4>{{ active_listing.item_name }}</h4>
-                                <p>Created at: {{ active_listing.created_at }}</p>
-                                <a href="{% url 'display_list' active_listing.id %}"
-                                    class="btn btn-primary mr-2">view</a>
-                               
-                                {% if user.is_authenticated %}
-                                
-                                {% elif user.is_authenticated %}
-                                <a href="{% url 'add_add_to_cart' active_listing.id %}" class="btn btn-primary">+ add to
-                                    cart</a>
-                                {% else %}
-                                <button type="button" class="btn btn-primary" disabled>+ add to cart</button>
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% endfor %}
+                    <div class="col-sm-6 text-right">
+                        Designed by <a href="https://colorlib.com">Colorlib</a>
                     </div>
-
-                </div>
-            </section> -->
-
-
-        </div>
-
-    </div>
-    <!--end products-->
-    <div class="clearfix"></div>
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="footer-inner bg-white">
-            <div class="row">
-                <div class="col-sm-6">
-                    Copyright &copy; 2018 Ela Admin
-                </div>
-                <div class="col-sm-6 text-right">
-                    Designed by <a href="https://colorlib.com">Colorlib</a>
                 </div>
             </div>
-        </div>
-    </footer>
-    <!-- /.site-footer -->
+        </footer>
+        <!-- /.site-footer -->
     </div>
     <!-- /#right-panel -->
 
@@ -479,9 +424,9 @@
                 <div class="modal-footer d-flex justify-content-center">
                     <div class="signup-section">No account yet? <a type="button" data-dismiss="modal"
                             data-toggle="modal" data-target="#signModal" class="text-primary"> Sign Up</a>
-                        <div class="signup-section d-flex justify-content-center"><a type="button" href="#"
-                                class="text-primary"> <small>Forgot Password</small>
-                            </a>
+                        <div class="signup-section d-flex justify-content-center">
+                            <a type="button" href="{% url 'reset_password' %}" class="text-primary"> <small>Forgot
+                                    Password</small></a>
                         </div>
                     </div>
                 </div>
@@ -578,11 +523,10 @@
                 </div>
                 </form>
             </div>
-
         </div>
     </div>
-    </div>
     <!-- end of sign-up modal   -->
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>

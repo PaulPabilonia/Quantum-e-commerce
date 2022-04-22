@@ -1,4 +1,5 @@
 #for creating and logging user
+import email
 from django.contrib.auth import authenticate, login, logout
 #intergrityerror for no ducplicate or repeated user
 from django.db import IntegrityError
@@ -12,7 +13,7 @@ from django.urls import reverse
 #for messages alerts
 from django.contrib import messages
 from .models import User, ShoppingList, Comments
-
+from django.core.mail import send_mail
 
 def index(request):
     """
@@ -31,9 +32,27 @@ def quanta_home(request):
     in the database that is active meaning the listing is still open for bidding
     is_closed = False means it is still active
     """
+
     active_listings = ShoppingList.objects.filter(is_closed=False)
     return render(request, "quanta/home_page.html",{
-            "active_listings": active_listings
+            "active_listings": active_listings,
+        })
+
+def contact(request):
+    if request.method == "POST":
+        message_name = request.POST['contact_name']
+        message_subj = request.POST['contact_subject']
+        message_email = request.POST['contact_email']
+        message = request.POST['contact_message']
+
+        send_mail(
+            message_subj,
+            'Hi I am '+message_name+ " \n"+message + '\n\n' +'from '+ message_email,
+            'from@gmail.com',
+            ['lamirageinnandsuite@gmail.com'],
+            fail_silently=False,)
+        
+        return render(request, "quanta/home.html",{
         })
 
 def submit_listings(request):
@@ -212,7 +231,7 @@ def login_view(request):
             messages.error(request, "Invalid username and/or password!")
             return HttpResponseRedirect(reverse('quanta_home'))
     else:
-        return render(request, "quanta/index.html")
+        return render(request, "quanta/home_page.html")
 
 
 def logout_view(request):
@@ -232,7 +251,7 @@ def register(request):
         if password != confirmation:
             messages.error(request, "Password Must Match")
             return render(
-                request, "qunata/index.html", {
+                request, "qunata/home_page.html", {
                     "username": username,
                     "email": email,
                 })
@@ -244,7 +263,7 @@ def register(request):
         except IntegrityError:
             messages.error(request, "Username Already taken!")
             return render(
-                request, "quanta/index.html", {
+                request, "quanta/home_page.html", {
                     "username": username,
                     "email": email,
                 })
@@ -255,7 +274,7 @@ def register(request):
             messages.success(request, "Registered Successfully!")
             return HttpResponseRedirect(reverse("quanta_home"))
     else:
-        return render(request, "quanta/index.html")
+        return render(request, "quanta/home_page.html")
 
 
 

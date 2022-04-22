@@ -32,16 +32,7 @@
                         <h4>{{ active_listing.item_name }}</h4>
                         <p>Created at: {{ active_listing.created_at }}</p>
                         <a href="{% url 'display_list' active_listing.id %}" class="btn btn-primary mr-2">view</a>
-                        <!-- add_to_cart buttons -->
-                        {% if user.is_authenticated %}
-                        <a href="{% url 'remove_add_to_cart' active_listing.id %}" class="btn btn-dark">- add to
-                            cart</a>
-                        {% elif user.is_authenticated %}
-                        <a href="{% url 'add_add_to_cart' active_listing.id %}" class="btn btn-primary">+ add to
-                            cart</a>
-                        {% else %}
-                        <button type="button" class="btn btn-primary" disabled>+ add to cart</button>
-                        {% endif %}
+  
                     </div>
                 </div>
                 {% endfor %}
@@ -51,5 +42,4 @@
 
 </div>
 
-</div>
 {% endblock %}
