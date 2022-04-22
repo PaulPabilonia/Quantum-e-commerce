@@ -23,6 +23,9 @@ urlpatterns = [
     path("view_profile",views.view_profile,name="view_profile"),
     path("user_products",views.user_products,name="user_products"),
     path("contact",views.contact,name="contact"),
+    path("my_favorites", views.my_favorites, name="my_favorites"),
+    path("add_to_favorites/<int:listing_id>", views.add_to_favorites, name = "add_to_favorites"),
+    path("removed_to_favorites/<int:listing_id>",views.removed_to_favorites,name="removed_to_favorites"),
 
     path('reset_password/',
      auth_views.PasswordResetView.as_view(template_name="quanta/password_reset.html"),

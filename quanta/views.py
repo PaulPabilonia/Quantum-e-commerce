@@ -110,9 +110,11 @@ def display_list(request, listing_id):
         listing_owner = False
 
     listing_in_user_add_to_cart = request.user in listing.add_to_cart.all()
+    listing_in_user_favorites = request.user in listing.favorite.all()
     return render(request, "quanta/display_list.html",{
         'listing':listing,
         'listing_in_user_add_to_cart':listing_in_user_add_to_cart,
+        'listing_in_user_favorites':listing_in_user_favorites,
         'listing_owner': listing_owner,
         'comments':comments
     })
@@ -122,7 +124,23 @@ def add_add_to_cart(request, listing_id):
     listing = ShoppingList.objects.get(pk = listing_id)
     listing.add_to_cart.add(user) 
 
-    messages.success(request,"+add_to_cart added Successfully!")
+    messages.success(request,"+Added to Cart Successfully!")
+    """
+    adding the user to the add_to_cart to reference the listing
+    Whenever the user is loggged in all the list(add_to_cart) that link to it(user)
+    will display to the add_to_cart page.
+    because add_to_cart is using Many to many field 
+    it can have multiple user and the user can have multiple add_to_cart
+    """
+    #after adding the listing to the add_to_cart it will stay at the display_list page
+    return HttpResponseRedirect(reverse('display_list', args=(listing_id,)))
+
+def add_to_favorites(request, listing_id):
+    user = request.user
+    listing = ShoppingList.objects.get(pk = listing_id)
+    listing.favorite.add(user) 
+
+    messages.success(request,"Added to Favorites Successfully!")
     """
     adding the user to the add_to_cart to reference the listing
     Whenever the user is loggged in all the list(add_to_cart) that link to it(user)
@@ -152,7 +170,19 @@ def remove_add_to_cart(request, listing_id):
     listing = ShoppingList.objects.get(pk = listing_id)  
     listing.add_to_cart.remove(user) 
 
-    messages.success(request,"-add_to_cart removed Successfully!")
+    messages.success(request,"Removed Successfully!")
+    """
+    removing the link of the listing to the user.
+    """
+    #after removing the listing to the add_to_cart of the user it will stay at the display_list page
+    return HttpResponseRedirect(reverse('display_list', args=(listing_id,)))
+
+def removed_to_favorites(request, listing_id):
+    user = request.user
+    listing = ShoppingList.objects.get(pk = listing_id)  
+    listing.favorite.remove(user) 
+
+    messages.success(request,"Removed Successfully!")
     """
     removing the link of the listing to the user.
     """
@@ -201,6 +231,13 @@ def add_to_cart(request):
     user_add_to_cart = user.added_to_cart.all()
     return render(request, "quanta/add_to_cart.html",{
         'user_add_to_cart': user_add_to_cart
+    })
+
+def my_favorites(request): 
+    user = request.user
+    user_add_to_favorites = user.added_to_favorite.all()
+    return render(request, "quanta/add_to_favorites.html",{
+        'user_add_to_favorites': user_add_to_favorites
     })
     
     
