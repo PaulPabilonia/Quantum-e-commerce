@@ -32,10 +32,16 @@ def quanta_home(request):
     in the database that is active meaning the listing is still open for bidding
     is_closed = False means it is still active
     """
-
+    user = request.user
+    if user.is_authenticated:
+        my_cart_count = user.added_to_cart.all().count()
+    else:
+        my_cart_count = 0
+         
     active_listings = ShoppingList.objects.filter(is_closed=False)
     return render(request, "quanta/home_page.html",{
             "active_listings": active_listings,
+            "my_cart_count":my_cart_count,
         })
 
 def contact(request):
@@ -108,7 +114,8 @@ def display_list(request, listing_id):
         listing_owner = True
     else:
         listing_owner = False
-
+    user = request.user
+    my_cart_count = user.added_to_cart.all().count()
     listing_in_user_add_to_cart = request.user in listing.add_to_cart.all()
     listing_in_user_favorites = request.user in listing.favorite.all()
     return render(request, "quanta/display_list.html",{
@@ -116,7 +123,8 @@ def display_list(request, listing_id):
         'listing_in_user_add_to_cart':listing_in_user_add_to_cart,
         'listing_in_user_favorites':listing_in_user_favorites,
         'listing_owner': listing_owner,
-        'comments':comments
+        'comments':comments,
+        'my_cart_count':my_cart_count
     })
 
 def add_add_to_cart(request, listing_id):
@@ -199,15 +207,17 @@ def closed_auction(request, listing_id):
 # add profile to model
 def view_profile(request):
     user = request.user
+    my_cart_count = user.added_to_cart.all().count()
     print(user)
     listing = ShoppingList.objects.filter(owner = user)
-    return render(request, "quanta/profile_page.html",{"listing":listing})
+    return render(request, "quanta/profile_page.html",{"listing":listing,'my_cart_count':my_cart_count})
 
 def user_products(request):
     user = request.user
     print(user)
+    my_cart_count = user.added_to_cart.all().count()
     listing = ShoppingList.objects.filter(owner = user)
-    return render(request, "quanta/my_products.html",{"listing":listing})
+    return render(request, "quanta/my_products.html",{"listing":listing,'my_cart_count':my_cart_count})
 # def place_bid(request,listing_id):
 #     if request.method == 'POST':
 #         listing = ShoppingList.objects.get(pk= listing_id)
@@ -229,26 +239,43 @@ def user_products(request):
 def add_to_cart(request): 
     user = request.user
     user_add_to_cart = user.added_to_cart.all()
+    my_cart_count = user.added_to_cart.all().count()
     return render(request, "quanta/add_to_cart.html",{
-        'user_add_to_cart': user_add_to_cart
+        'user_add_to_cart': user_add_to_cart,
+        'my_cart_count':my_cart_count
     })
 
 def my_favorites(request): 
     user = request.user
     user_add_to_favorites = user.added_to_favorite.all()
+    my_cart_count = user.added_to_cart.all().count()
     return render(request, "quanta/add_to_favorites.html",{
-        'user_add_to_favorites': user_add_to_favorites
+        'user_add_to_favorites': user_add_to_favorites,
+        'my_cart_count':my_cart_count
     })
     
     
 def createlist(request):
-    return render(request, "quanta/createlist.html")
+    user = request.user
+    if user.is_authenticated:
+        my_cart_count = user.added_to_cart.all().count()
+    else:
+        my_cart_count = 0
+    return render(request, "quanta/createlist.html",{
+        'my_cart_count':my_cart_count
+    })
 
 
 def all_list(request):
     all_listings = ShoppingList.objects.all()
+    user = request.user
+    if user.is_authenticated:
+        my_cart_count = user.added_to_cart.all().count()
+    else:
+        my_cart_count = 0
     return render(request, "quanta/all_list.html",{
-        'all_listings': all_listings
+        'all_listings': all_listings,
+        'my_cart_count':my_cart_count
     })
 
 def login_view(request):
