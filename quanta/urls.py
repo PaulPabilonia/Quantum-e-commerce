@@ -20,7 +20,12 @@ urlpatterns = [
     path("closed_auction/<int:listing_id>",views.closed_auction,name="closed_auction"),
     path("add_comment/<int:listing_id>",views.add_comment,name="add_comment"),
     path("quanta_home",views.quanta_home,name="quanta_home"),
-    path("view_profile",views.view_profile,name="view_profile"),
+    #profile
+    path("view_profile/<int:user_id>",views.view_profile,name="view_profile"),
+    path("update_details/<int:user_id>",views.update_details,name="update_details"),
+    path("update_profile/<int:user_id>",views.update_profile,name="update_profile"),
+
+
     path("user_products",views.user_products,name="user_products"),
     path("contact",views.contact,name="contact"),
     path("my_favorites", views.my_favorites, name="my_favorites"),

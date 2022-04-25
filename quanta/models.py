@@ -1,3 +1,4 @@
+from email.headerregistry import Address
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.fields import BLANK_CHOICE_DASH
@@ -8,6 +9,22 @@ from django.db.models.query_utils import select_related_descend
 class User(AbstractUser):
     pass
 
+class UserProfile(models.Model):
+    #default = None means that it will store none if the user decides not to fill the data.
+    userprofile = models.ForeignKey(User, on_delete=models.CASCADE,related_name="userprofile_user",default=None)
+    phone_no = models.CharField(max_length=200, null=True)
+    nationality= models.CharField(max_length=200, null=True)
+    address =  models.CharField(max_length=200, null=True)
+    profile_img = models.ImageField(null=True, blank = True, upload_to = "images/")
+    is_deleted = models.BooleanField(default=False,blank= True)
+    #auto_now_add = a start date you first add a UserProfile
+    created_at = models.DateTimeField(auto_now_add=True)
+    #auto_now = the date when you modifed/update a UserProfile
+    update_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.userprofile)
+        S
 class ShoppingList(models.Model):
     #default = None means that it will store none if the user decides not to fill the data.
     owner = models.ForeignKey(User, on_delete=models.CASCADE,related_name="shoppinglist",default=None)

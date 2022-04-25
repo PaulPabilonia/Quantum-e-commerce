@@ -100,7 +100,7 @@
                     {% if user.is_authenticated %}
                     <li class="menu-title">Acount Details </li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="{% url 'view_profile' %}"> <i class="menu-icon fa fa-user"></i>My Profile</a>
+                        <a href="{% url 'view_profile' user.id %}"> <i class="menu-icon fa fa-user"></i>My Profile</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="{% url 'my_favorites' %}"> <i class="menu-icon far fa-heart"></i>My Favorites</a>
@@ -256,7 +256,7 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="{% url 'view_profile' %}"><i class="fa fa- user"></i>My
+                            <a class="nav-link" href="{% url 'view_profile' user.id %}"><i class="fa fa- user"></i>My
                                 Profile</a>
 
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span
@@ -342,16 +342,12 @@
                         <div class="text-center text-muted delimiter">or use a social network</div>
                         <div class="d-flex justify-content-center social-buttons">
                             <button type="button" class="btn btn-secondary btn-round btns" data-toggle="tooltip"
-                                data-placement="top" title="Twitter">
-                                <i class="fab fa-twitter"></i>
+                                data-placement="top" title="Google">
+                                <i class="fab fa-google"></i>
                             </button>
                             <button type="button" class="btn btn-secondary btn-round btns" data-toggle="tooltip"
                                 data-placement="top" title="Facebook">
                                 <i class="fab fa-facebook"></i>
-                            </button>
-                            <button type="button" class="btn btn-secondary btn-round btns" data-toggle="tooltip"
-                                data-placement="top" title="Linkedin">
-                                <i class="fab fa-instagram"></i>
                             </button>
                             </di>
                         </div>
@@ -429,11 +425,6 @@
                         <!-- <div class="valid-feedback">
                              Looks good!
                          </div> -->
-
-                        <div class="form-group">
-                            <label for="exampleFormControlFile1">Choose Profile</label>
-                            <input class="form-control" type="file" id="formFile" name="profile_img">
-                        </div>
 
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="invalidCheck3"

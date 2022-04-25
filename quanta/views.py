@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.urls import reverse
 #for messages alerts
 from django.contrib import messages
-from .models import User, ShoppingList, Comments
+from .models import User,UserProfile, ShoppingList, Comments
 from django.core.mail import send_mail
 
 def index(request):
@@ -205,12 +205,57 @@ def closed_auction(request, listing_id):
     return HttpResponseRedirect(reverse('display_list', args=[listing_id]))
 
 # add profile to model
-def view_profile(request):
+def view_profile(request,user_id):
     user = request.user
     my_cart_count = user.added_to_cart.all().count()
     print(user)
+    userProfiles = UserProfile.objects.get(pk=user_id)
     listing = ShoppingList.objects.filter(owner = user)
-    return render(request, "quanta/profile_page.html",{"listing":listing,'my_cart_count':my_cart_count})
+    return render(request, "quanta/profile_page.html",{
+        "listing":listing,
+        'my_cart_count':my_cart_count,
+        'userProfiles':userProfiles
+        })
+
+def update_details(request, user_id):
+    user = User.objects.get(pk=user_id)
+    user_profile = UserProfile.objects.get(pk=user_id)
+    if request.method == "POST":
+
+        print(request.POST)
+
+        user.username = request.POST.get("username")
+        user.email = request.POST.get("email")
+        user.first_name = request.POST.get("first_name")
+        user.last_name = request.POST.get("last_name")
+        user.save()
+
+        # if len(request.FILES) != 0:
+        #     if len(user_profile.profile_img) > 0:
+        #         os.remove(user_profile.profile_img.path)
+        #     user_profile.profile_img = request.FILES['profile_img']
+        user_profile.nationality = request.POST.get("nationality")
+        user_profile.phone_no = request.POST.get("phone_no")
+        user_profile.address = request.POST.get("address")
+        user_profile.save()
+        messages.success(request, "Profile Updated Successfully!")
+        return HttpResponseRedirect(
+            reverse('view_profile', args=(user_id, )))
+    else:
+        return HttpResponseRedirect(
+            reverse('view_profile', args=(user_id, )))
+
+def update_profile(request,user_id):
+    user_profile = UserProfile.objects.get(pk=user_id)
+    if request.method == "POST":
+        user_profile.profile_img = request.FILES.get("profile_img")
+        user_profile.save()
+        messages.success(request, "Profile Updated Successfully!")
+        return HttpResponseRedirect(
+            reverse('view_profile', args=(user_id, )))
+    else:
+        return HttpResponseRedirect(
+            reverse('view_profile', args=(user_id, )))
 
 def user_products(request):
     user = request.user
@@ -324,6 +369,8 @@ def register(request):
         try:
             user = User.objects.create_user(username, email, password)
             user.save()
+            user_profile = UserProfile(userprofile=user,)
+            user_profile.save()
         except IntegrityError:
             messages.error(request, "Username Already taken!")
             return render(
