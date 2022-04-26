@@ -1,4 +1,6 @@
 {% load static %}
+{% load socialaccount %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -251,8 +253,17 @@
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="/static/quanta/images/admin.jpg"
+
+                            {% if user.pictures %}
+                            <img class="user-avatar rounded-circle" src="{{ user.pictures.url }}" alt="User Avatar">
+                            {% elif user.is_authenticated %}
+                            <img class="user-avatar rounded-circle" src="{% static './quanta/images/default_profile.png' %}"
                                 alt="User Avatar">
+                            {% else %}
+                            <img class="user-avatar rounded-circle" src="{% static './quanta/images/default_profile.png' %}"
+                                alt="User Avatar">
+                            {% endif %}
+
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -343,11 +354,12 @@
                         <div class="d-flex justify-content-center social-buttons">
                             <button type="button" class="btn btn-secondary btn-round btns" data-toggle="tooltip"
                                 data-placement="top" title="Google">
-                                <i class="fab fa-google"></i>
+                                <a href="{% provider_login_url "google" method="oauth2" %}"><i
+                                        class="fab fa-google"></i></a>
                             </button>
                             <button type="button" class="btn btn-secondary btn-round btns" data-toggle="tooltip"
                                 data-placement="top" title="Facebook">
-                                <i class="fab fa-facebook"></i>
+                                <a href="{% provider_login_url "google" %}"><i class="fab fa-facebook"></i></a>
                             </button>
                             </di>
                         </div>
@@ -356,8 +368,8 @@
                 <div class="modal-footer d-flex justify-content-center">
                     <div class="signup-section">No account yet? <a type="button" data-dismiss="modal"
                             data-toggle="modal" data-target="#signModal" class="text-primary"> Sign Up</a>
-                        <div class="signup-section d-flex justify-content-center"><a type="button" href="{% url 'reset_password' %}"
-                                class="text-primary"> <small>Forgot Password</small>
+                        <div class="signup-section d-flex justify-content-center"><a type="button"
+                                href="{% url 'reset_password' %}" class="text-primary"> <small>Forgot Password</small>
                             </a>
                         </div>
                     </div>

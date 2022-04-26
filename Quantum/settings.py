@@ -38,6 +38,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #login with social media
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    #providers
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+
+    #local app
     'quanta',
 ]
 
@@ -56,7 +68,7 @@ ROOT_URLCONF = 'Quantum.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,3 +155,29 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'lamirageinnandsuite@gmail.com'
 EMAIL_HOST_PASSWORD = 'Lamirage123'
+
+#social media login config
+SITE_ID = 1
+LOGIN_REDIRECT_URL = "/quanta_home"
+LOGOUT_REDIRECT_URL = '/quanta_home'
+SOCIALACCOUNT_QUERY_EMAIL=True
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'APP': {
+            'client_id': '384249833024-cvsq8bmrp7qg5qk3bf8st3jnlqp69pp5.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
+}

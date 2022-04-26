@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.urls import reverse
 #for messages alerts
 from django.contrib import messages
-from .models import User,UserProfile, ShoppingList, Comments
+from .models import User, ShoppingList, Comments
 from django.core.mail import send_mail
 
 def index(request):
@@ -115,7 +115,10 @@ def display_list(request, listing_id):
     else:
         listing_owner = False
     user = request.user
-    my_cart_count = user.added_to_cart.all().count()
+    if user.is_authenticated:
+        my_cart_count = user.added_to_cart.all().count()
+    else:
+        my_cart_count = 0
     listing_in_user_add_to_cart = request.user in listing.add_to_cart.all()
     listing_in_user_favorites = request.user in listing.favorite.all()
     return render(request, "quanta/display_list.html",{
@@ -209,7 +212,8 @@ def view_profile(request,user_id):
     user = request.user
     my_cart_count = user.added_to_cart.all().count()
     print(user)
-    userProfiles = UserProfile.objects.get(pk=user_id)
+    #fix UserProfile and delete it 
+    userProfiles = User.objects.get(pk=user_id)
     listing = ShoppingList.objects.filter(owner = user)
     return render(request, "quanta/profile_page.html",{
         "listing":listing,
@@ -219,7 +223,7 @@ def view_profile(request,user_id):
 
 def update_details(request, user_id):
     user = User.objects.get(pk=user_id)
-    user_profile = UserProfile.objects.get(pk=user_id)
+    user_profile = User.objects.get(pk=user_id)
     if request.method == "POST":
 
         print(request.POST)
@@ -246,9 +250,9 @@ def update_details(request, user_id):
             reverse('view_profile', args=(user_id, )))
 
 def update_profile(request,user_id):
-    user_profile = UserProfile.objects.get(pk=user_id)
+    user_profile = User.objects.get(pk=user_id)
     if request.method == "POST":
-        user_profile.profile_img = request.FILES.get("profile_img")
+        user_profile.pictures = request.FILES.get("profile_img")
         user_profile.save()
         messages.success(request, "Profile Updated Successfully!")
         return HttpResponseRedirect(
@@ -369,8 +373,6 @@ def register(request):
         try:
             user = User.objects.create_user(username, email, password)
             user.save()
-            user_profile = UserProfile(userprofile=user,)
-            user_profile.save()
         except IntegrityError:
             messages.error(request, "Username Already taken!")
             return render(

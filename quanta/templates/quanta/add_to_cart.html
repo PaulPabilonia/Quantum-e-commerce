@@ -6,58 +6,6 @@ Add To Cart
 {% endblock %}
 
 {% block body%}
-<!-- <div class="row">
-    {% for user_listings in user_add_to_cart %}
-    <div class="card col-sm-3" style="width: 18rem;">
-        <div class="card-header">
-            <p id="bid">Starting bid: <span id="price">{{ user_listings.bid.bid }}</span>
-                by <span id="price">{{ user_listings.bid.user }}</span></p>
-            <p class="card-text">Last Updated at: {{ user_listings.update_at | timesince }} ago</p>
-        </div>
-        {% if user_listings.product_img %}
-        <img src="{{ user_listings.product_img.url }}" class="card-img-top" alt="Url Pictures">
-        {% else %}
-        <img src="{% static './quanta/images/background-logo.svg' %}" alt="Admin" class="card-img-top" width="150">
-        {% endif %}
-        <div class="card-body">
-            <h5 class="card-title">{{ user_listings.item_name}}</h5>
-            <p class="card-text">{{ user_listings.description }}</p>
-            <a href="{% url 'display_list' user_listings.id %}" class="btn btn-primary">view</a>
-            <p class="card-text">Created at: {{ user_listings.created_at }}</p>
-        </div>
-    </div>
-    {% endfor %}
-</div> -->
+
 {% include 'quanta/my_cart.html' %}
-<!-- <section id="services" class="section">
-    <div class="container">
-      <div class="section-header">          
-        <h2 class="section-title">My Cart</h2>
-        <span>Quanta!</span>
-        <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy</p>
-      </div>
-
-      <div class="row">
-        {% for active_listing in user_add_to_cart %}
-        <div class="col-lg-4 col-md-6 col-xs-12">
-          <div class="item-boxes services-item wow fadeInDown" data-wow-delay="0.2s">
-            <div class="icon color-1">
-                {% if active_listing.product_img %}
-                <img src="{{ active_listing.product_img.url }}" class="" alt="Url Pictures" width="200"
-                    height="200">
-                {% else %}
-                <img src="{% static './quanta/images/background-logo.svg' %}" alt="Admin" class="" width="200" height="200">
-                {% endif %}
-            </div>
-            <h4>{{ active_listing.item_name}}</h4>
-            <p>Created at: {{ active_listing.created_at }}</p>
-            <a href="{% url 'display_list' active_listing.id %}" class="btn btn-primary mr-2">view</a>
-            <a class="btn btn-danger" >Add to cart</a>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-
-    </div>
-  </section> -->
 {% endblock%}

@@ -20,16 +20,16 @@
     <div class="col-lg-4">
       <div class="card mb-4">
         <div class="card-body text-center">
-          {% if userProfiles.profile_img %}
-          <img src="{{ userProfiles.profile_img.url }}" alt="Admin" class="rounded-circle img-fluid"
+          {% if user.pictures %}
+          <img src="{{ user.pictures.url }}" alt="Admin" class="rounded-circle img-fluid"
             style="width: 150px;">
           {% elif user.is_authenticated %}
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+          <img src="{% static './quanta/images/default_profile.png' %}" alt="avatar"
             class="rounded-circle img-fluid" style="width: 150px;">
           {% endif %}
           <h2 class="my-3">{{ user.first_name }} {{ user.last_name }}</h2>
           <p class="text-muted mb-1">@{{ user.username }}</p>
-          <p class="text-muted mb-4">{{ userProfiles.address }}</p>
+          <p class="text-muted mb-4">{{ user.address }}</p>
           <!-- <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> -->
           <div class="d-flex justify-content-center mb-2">
             <form action="{% url 'update_profile' user.id %}" method="POST" enctype="multipart/form-data" novalidate>
@@ -117,7 +117,7 @@
               </div>
               <div class="col-sm-9">
                 <input type="text" name="phone_no" class="form-control text-secondary"
-                  value="{{ userProfiles.phone_no}}" required>
+                  value="{{ user.phone_no}}" required>
               </div>
             </div>
             <div class="row">
@@ -126,7 +126,7 @@
               </div>
               <div class="col-sm-9">
                 <input type="text" name="nationality" class="form-control text-secondary"
-                  value="{{ userProfiles.nationality }}" required>
+                  value="{{ user.nationality }}" required>
               </div>
             </div>
             <div class="row">
@@ -134,7 +134,7 @@
                 <p class="mb-0">Address</p>
               </div>
               <div class="col-sm-9">
-                <input type="text" name="address" class="form-control text-secondary" value="{{ userProfiles.address }}"
+                <input type="text" name="address" class="form-control text-secondary" value="{{ user.address }}"
                   required>
               </div>
             </div>

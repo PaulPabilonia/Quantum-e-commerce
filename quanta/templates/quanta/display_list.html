@@ -65,20 +65,25 @@ Display
 
                     <!-- add_to_cart buttons -->
                     {% if listing_in_user_add_to_cart and user.is_authenticated %}
-                    <a href="{% url 'remove_add_to_cart' listing.id %}" class="btn btn-danger "><i class="menu-icon fas fa-cart-plus"></i> remove to cart</a>
+                    <a href="{% url 'remove_add_to_cart' listing.id %}" class="btn btn-danger "><i
+                            class="menu-icon fas fa-cart-plus"></i> remove to cart</a>
                     {% elif not listing_in_user_add_to_cart and user.is_authenticated %}
-                    <a href="{% url 'add_add_to_cart' listing.id %}" class="btn btn-success"><i class="menu-icon fas fa-cart-plus"></i> add to cart</a>
+                    <a href="{% url 'add_add_to_cart' listing.id %}" class="btn btn-success"><i
+                            class="menu-icon fas fa-cart-plus"></i> add to cart</a>
                     {% else %}
                     <button type="button" class="btn btn-primary" disabled>+ add to cart</button>
                     {% endif %}
 
                     <!-- favorite buttons -->
                     {% if listing_in_user_favorites and user.is_authenticated %}
-                    <a href="{% url 'removed_to_favorites' listing.id %}" class="btn "> <i class="menu-icon fa fa-heart"></i> </a>
+                    <a href="{% url 'removed_to_favorites' listing.id %}" class="btn "> <i
+                            class="menu-icon fa fa-heart"></i> </a>
                     {% elif not listing_in_user_favorites and user.is_authenticated %}
-                    <a href="{% url 'add_to_favorites' listing.id %}" class="btn"><i class="menu-icon far fa-heart"></i></a>
+                    <a href="{% url 'add_to_favorites' listing.id %}" class="btn"><i
+                            class="menu-icon far fa-heart"></i></a>
                     {% else %}
-                    <button type="button" class="btn btn-primary" disabled><i class="menu-icon far fa-heart"></i></button>
+                    <button type="button" class="btn btn-primary" disabled><i
+                            class="menu-icon far fa-heart"></i></button>
                     {% endif %}
                     <p class="card-text"><small class="text-muted">Last updated: {{ listing.update_at | timesince }}
                             ago</small></p>
@@ -115,8 +120,16 @@ Display
             {%csrf_token%}
             <div class="bg-light p-2">
                 <h5 class="card-title">Add Comments: </h5>
-                <div class="d-flex flex-row align-items-start"><img class="rounded-circle"
-                        src="https://i.imgur.com/RpzrMR2.jpg" width="40">
+                <div class="d-flex flex-row align-items-start">
+                    {% if user.pictures %}
+                    <img class="rounded-circle" src="{{ user.pictures.url }}" width="40">
+                    {% elif user.is_authenticated %}
+                    <img class="rounded-circle" src="{% static './quanta/images/default_profile.png' %}" width="40">
+                    {% else %}
+                    <img class="rounded-circle" src="{% static './quanta/images/default_profile.png' %}" width="40">
+                    {% endif %}
+
+
                     <textarea class="form-control ml-1 shadow-none textarea"
                         placeholder="What do you think? Comment Here?" type="text" name="comment"></textarea>
                 </div>
@@ -143,9 +156,15 @@ Display
                 <div class="col-md-12">
                     <div class="d-flex flex-column comment-section">
                         <div class="bg-white p-2">
-                            
-                            <div class="d-flex flex-row user-info"><img class="rounded-circle"
-                                    src="https://i.imgur.com/RpzrMR2.jpg" width="40">
+
+                            <div class="d-flex flex-row align-items-start">
+                                {% if user.pictures %}
+                                <img class="rounded-circle" src="{{ user.pictures.url }}" width="40">
+                                {% elif comment.commentor.pictures %}
+                                <img class="rounded-circle" src="{{ comment.commentor.pictures.url }}" width="40">
+                                {% else %}
+                                <img class="rounded-circle" src="{% static './quanta/images/default_profile.png' %}" width="40">
+                                {% endif %}
                                 <div class="d-flex flex-column justify-content-start ml-2"><span
                                         class="d-block font-weight-bold name">{{comment.commentor}}</span><span
                                         class="date text-black-50">{{ comment.comment_at | timesince}} ago</span></div>
