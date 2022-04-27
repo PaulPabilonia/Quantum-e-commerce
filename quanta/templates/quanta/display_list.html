@@ -76,7 +76,7 @@ Display
 
                     <!-- favorite buttons -->
                     {% if listing_in_user_favorites and user.is_authenticated %}
-                    <a href="{% url 'removed_to_favorites' listing.id %}" class="btn "> <i
+                    <a href="{% url 'removed_to_favorites' listing.id %}" class="btn btn-outline-danger"> <i
                             class="menu-icon fa fa-heart"></i> </a>
                     {% elif not listing_in_user_favorites and user.is_authenticated %}
                     <a href="{% url 'add_to_favorites' listing.id %}" class="btn"><i

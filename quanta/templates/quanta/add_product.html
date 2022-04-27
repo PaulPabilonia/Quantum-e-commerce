@@ -1,0 +1,65 @@
+{% extends "quanta/layouts.html" %}
+{% load static %}
+{% block head %}
+{% endblock %}
+{% block body %}
+
+<!-- choosing a category will only show all the active list form that category
+    Ex. cars 
+        only all cars that are listed will show/display -->
+{% include 'quanta/messages.html' %}
+
+<div class="container">
+  <div class="container bg-white">
+    <div class="section-header">
+      <h2 class="section-title">Products</h2>
+      <span>Shop now!</span>
+      <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+      </p>
+    </div>
+    <form class="" action="{% url 'submit_listings' %}" method="POST" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      <div>
+        <label>Title: <span class="badge badge-danger">Required</span></label>
+        <input type="text" name="item_name" class="form-control" placeholder="Name: (Maximum of 70 Characters)">
+      </div>
+      <div>
+        <select name="category" class="form-select custom-select col-md-3" aria-label="Default select example">
+          <option disabled selected value>Select Category</option>
+          <option value="fashion">Fashion</option>
+          <option value="cars">Cars</option>
+          <option value="toys">Toys</option>
+          <option value="home">Homes</option>
+        </select>
+      </div>
+      <div>
+        <label>Product Price:<span class="badge badge-danger">Required</span></label>
+        <input type="text" class="form-control" name="bid" placeholder="Price Range: (0$ to $9,999,999)">
+      </div>
+      <div>
+        <label>Description: <span class="badge badge-danger">Required</span></label>
+        <textarea rows="8" class="form-control" type="text" name="description"
+          placeholder="Description: (Maximum of 300 characters)"></textarea>
+      </div>
+      <div>
+        <div class="col-sm-4 mt-3">
+          <div class="form-group">
+            <label for="exampleFormControlFile1">Product Image <span class="badge badge-danger">Required</span></label>
+            <input class="form-control" type="file" id="formFile" name="product_img">
+          </div>
+        </div>
+      </div>
+      {% if user.is_authenticated %}
+      <div>
+        <input class="btn btn-primary" type="submit">
+      </div>
+      {% else %}
+      <div>
+        <input class="btn btn-primary" disabled type="submit">
+      </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
+{% endblock %}
