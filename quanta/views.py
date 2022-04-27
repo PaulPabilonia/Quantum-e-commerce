@@ -13,6 +13,7 @@ from django.urls import reverse
 #for messages alerts
 from django.contrib import messages
 from .models import User, ShoppingList, Comments
+from django.db.models import Sum
 from django.core.mail import send_mail
 
 def index(request):
@@ -285,13 +286,22 @@ def user_products(request):
 #             return HttpResponseRedirect(reverse('display_list',args=[listing_id]))
 
 
-def add_to_cart(request): 
+def add_to_cart(request,user_id): 
     user = request.user
+    # items = ShoppingList.objects.get(pk = user_id)
+    # total = user.added_to_cart.starting_price.count()
+    print('Total: ')
+    subtotal = 0
     user_add_to_cart = user.added_to_cart.all()
+    for active_listing in user_add_to_cart:
+        subtotal = subtotal + active_listing.starting_price
+    total = 20 + subtotal
     my_cart_count = user.added_to_cart.all().count()
     return render(request, "quanta/add_to_cart.html",{
         'user_add_to_cart': user_add_to_cart,
-        'my_cart_count':my_cart_count
+        'my_cart_count':my_cart_count,
+        'subtotal':subtotal,
+        'total':total
     })
 
 def my_favorites(request): 

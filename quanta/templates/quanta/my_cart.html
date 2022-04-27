@@ -51,29 +51,34 @@
                                         <div class="row form-group align-items-center">
                                             <div class="col-4">
                                                 <img src="{{ active_listing.product_img.url }}"
-                                                    class="img-fluid rounded-3" alt="Shopping item"
+                                                    class="img-fluid rounded-3 mt-2" alt="Shopping item"
                                                     style="width: 65px;">
 
                                             </div>
                                             <div class="col-8 align-items-center">
-                                                <div class="row form-group">
+                                                <div class="row ">
                                                     <div class="col-6">
-                                                        <div class="mt-4 mb-2">
+                                                        <div class="mt-2 mb-2">
                                                             <h5>{{ active_listing.item_name }}</h5>
                                                         </div>
                                                         <div class="" style="width: 80px;">
-                                                            <h5 class="mb-0">${{ active_listing.starting_price }}
+                                                            <h5 class="mb-0">₱{{ active_listing.starting_price }}
                                                             </h5>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-4">
-                                                        <div class="mt-4 float-right">
-                                                            <a href="{% url 'remove_add_to_cart' active_listing.id %}"
-                                                                class=" btn-danger btn-sm" data-mdb-toggle="tooltip"
-                                                                title="Remove item">
-                                                                <i class="fas fa-trash"></i>
-                                                            </a>
+                                                    <div class="col-6">
+                                                        <div class="mt-3 float-right">
+                                                            <div class="row">
+                                                                <a href="{% url 'remove_add_to_cart' active_listing.id %}"
+                                                                    class=" btn-danger btn-sm mr-2 "
+                                                                    data-mdb-toggle="tooltip" title="Remove item">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </a>
+                                                                <a href="{% url 'display_list' active_listing.id %}"
+                                                                    class="btn-sm btn-primary mr-2 rounded">view</a>
+                                                            </div>
+
                                                         </div>
                                                     </div>
 
@@ -89,13 +94,13 @@
 
                             <div class="col-lg-5">
 
-                                <div class="card bg-white text-dark rounded-3">
+                                <div class="card bg-faded text-dark rounded-3">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center mb-4">
                                             <h5 class="mb-0">Card details</h5>
 
                                             {% if user.pictures %}
-                                            <img class="user-avatar rounded-circle bg-white"
+                                            <img class="user-avatar rounded-circle bg-faded"
                                                 src="{{ user.pictures.url }}" alt="User Avatar" style="width: 45px;">
 
                                             {% elif user.is_authenticated %}
@@ -159,22 +164,22 @@
 
                                         <div class="d-flex justify-content-between">
                                             <p class="mb-2">Subtotal</p>
-                                            <p class="mb-2">$4798.00</p>
+                                            <p class="mb-2">₱{{ subtotal }}</p>
                                         </div>
 
                                         <div class="d-flex justify-content-between">
                                             <p class="mb-2">Shipping</p>
-                                            <p class="mb-2">$20.00</p>
+                                            <p class="mb-2">₱20.00</p>
                                         </div>
 
                                         <div class="d-flex justify-content-between mb-4">
                                             <p class="mb-2">Total(Incl. taxes)</p>
-                                            <p class="mb-2">$4818.00</p>
+                                            <p class="mb-2">₱{{ total }}</p>
                                         </div>
 
                                         <button type="button" class="btn btn-info btn-block btn-lg">
                                             <div class="d-flex justify-content-between">
-                                                <span>$4818.00</span>
+                                                <span>₱{{ total }}</span>
                                                 <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                             </div>
                                         </button>

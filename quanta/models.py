@@ -19,7 +19,7 @@ class ShoppingList(models.Model):
     item_name = models.CharField(max_length=100)
     description = models.CharField(max_length=300)
     product_img = models.ImageField(null=True, blank = True, upload_to = "images/")
-    starting_price = models.IntegerField(default=0)
+    starting_price = models.DecimalField( max_digits = 8, decimal_places=2 )
     category = models.CharField(max_length=20)
     #blank = true / basically it accepts even it is blank or empty it simple means it is not required
     add_to_cart = models.ManyToManyField(User, blank=True, related_name="added_to_cart")

@@ -29,7 +29,7 @@ Display
                 <div class="card-body">
                     <h5 class="card-title">{{ listing.item_name}}</h5>
                     <p class="card-text"><small class="text-muted">Created at: {{ listing.created_at }}</small></p>
-                    <p id="bid">Price: <span id="price" style="color: green;">${{ listing.starting_price }}</span>
+                    <p id="bid">Price: <span id="price" style="color: green;">₱{{ listing.starting_price }}</span>
                         from <span id="price">{{ listing.owner }}</span></p>
                     <p class="card-text">Description:<br> {{ listing.description }}</p>
                     <!-- closed_auction button -->

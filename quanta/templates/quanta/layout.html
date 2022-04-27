@@ -111,7 +111,7 @@
                         <a href="{% url 'user_products' %}"><i class="menu-icon fa fa-store"></i>My Products</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="{% url 'add_to_cart' %}"><i class="menu-icon fas fa-cart-plus"></i>My Cart</a>
+                        <a href="{% url 'add_to_cart' user.id %}"><i class="menu-icon fas fa-cart-plus"></i>My Cart</a>
                     </li>
                     <li class="menu-title">-------------------------------------------</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
@@ -155,7 +155,7 @@
                         {% if user.is_authenticated %}
                         <div class="dropdown for-notification">
 
-                            <a href="{% url 'add_to_cart' %}">
+                            <a href="{% url 'add_to_cart' user.id %}">
                                 <button class="btn-secondary dropdown-toggle" id="notification">
                                     <i class="fas fa-cart-plus"></i>
                                     <span class="count bg-danger">{{ my_cart_count }}</span>
