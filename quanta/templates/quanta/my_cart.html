@@ -11,7 +11,7 @@
 {% include 'quanta/messages.html' %}
 <div class="container bg-white">
     <div class="section-header">
-        <h2 class="section-title">Products</h2>
+        <h2 class="section-title">My Cart</h2>
         <span>Shop now!</span>
         <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
         </p>
@@ -46,8 +46,8 @@
                                     </div>
                                 </div>
                                 {% for active_listing in user_add_to_cart %}
-                                <div class="card mb-3">
-                                    <div class="card-body">
+                                <div class="card mb-3 ">
+                                    <div class="card-body ">
                                         <div class="row form-group align-items-center">
                                             <div class="col-4">
                                                 <img src="{{ active_listing.product_img.url }}"
@@ -59,17 +59,17 @@
                                                 <div class="row ">
                                                     <div class="col-6">
                                                         <div class="mt-2 mb-2">
-                                                            <h5>{{ active_listing.item_name }}</h5>
+                                                            <h6><strong>{{ active_listing.item_name }}</strong></h6>
                                                         </div>
                                                         <div class="" style="width: 80px;">
-                                                            <h5 class="mb-0">₱{{ active_listing.starting_price }}
-                                                            </h5>
+                                                            <h6 class="mb-0">₱{{ active_listing.starting_price }}
+                                                                </h5>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-6">
-                                                        <div class="mt-3 float-right">
-                                                            <div class="row">
+                                                        <div class="mt-2 float-right">
+                                                            <div class="">
                                                                 <a href="{% url 'remove_add_to_cart' active_listing.id %}"
                                                                     class=" btn-danger btn-sm mr-2 "
                                                                     data-mdb-toggle="tooltip" title="Remove item">
@@ -125,35 +125,35 @@
                                                 class="fab fa-cc-paypal fa-2x"></i></a>
 
                                         <form class="mt-4">
-                                            <div class="form-outline form-white mb-4">
-                                                <input type="text" id="typeName" class="form-control form-control-lg"
+                                            <div class="">
+                                                <label class="form-label " for="typeName">Cardholder's Name</label>
+                                                <input type="text" id="typeName" class="form-control form-control-md"
                                                     siez="17" placeholder="Cardholder's Name" />
-                                                <label class="form-label" for="typeName">Cardholder's Name</label>
                                             </div>
 
-                                            <div class="form-outline form-white mb-4">
-                                                <input type="text" id="typeText" class="form-control form-control-lg"
+                                            <div class="">
+                                                <label class="form-label" for="typeText">Card Number</label>
+                                                <input type="text" id="typeText" class=" form-control form-control-lg"
                                                     siez="17" placeholder="1234 5678 9012 3457" minlength="19"
                                                     maxlength="19" />
-                                                <label class="form-label" for="typeText">Card Number</label>
                                             </div>
 
                                             <div class="row mb-4">
                                                 <div class="col-md-6">
-                                                    <div class="form-outline form-white">
+                                                    <div class="">
+                                                        <label class="form-label" for="typeExp">Expiration</label>
                                                         <input type="text" id="typeExp"
                                                             class="form-control form-control-lg" placeholder="MM/YYYY"
                                                             size="7" id="exp" minlength="7" maxlength="7" />
-                                                        <label class="form-label" for="typeExp">Expiration</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="form-outline form-white">
+                                                    <div class="">
+                                                        <label class="form-label" for="typeText">Cvv</label>
                                                         <input type="password" id="typeText"
                                                             class="form-control form-control-lg"
                                                             placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3"
                                                             maxlength="3" />
-                                                        <label class="form-label" for="typeText">Cvv</label>
                                                     </div>
                                                 </div>
                                             </div>

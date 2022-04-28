@@ -9,36 +9,56 @@
         only all cars that are listed will show/display -->
 {% include 'quanta/messages.html' %}
 <div class="container">
-      <div class="container">
-        <div class="section-header">          
-          <h2 class="section-title">My Products</h2>
-          <span>Quanta!</span>
-          <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy</p>
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">My Products</h2>
+            <span>Quanta!</span>
+            <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy</p>
         </div>
 
-            <div class="row">
-                {% for active_listing in listing %}
-                <div class="col-lg-4 col-md-6 col-xs-12">
-                    <div class="item-boxes services-item wow fadeInDown" data-wow-delay="0.2s">
-                        <div class="icon color-1">
-                            {% if active_listing.product_img %}
-                            <img src="{{ active_listing.product_img.url }}" class="" alt="Url Pictures" width="200"
-                                height="200">
-                            {% else %}
-                            <img src="{% static './quanta/images/background-logo.svg' %}" alt="Admin" class=""
-                                width="200">
-                            {% endif %}
+        <div class="row mt-3">
+            {% for active_listing in listing %}
+            <div class="col-lg-4 col-md-6 col-xs-12">
+                <div class="card  services-item fadeInDown">
+                    <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                        data-mdb-ripple-color="light">
+                        {% if active_listing.product_img %}
+                        <img src="{{ active_listing.product_img.url }}" class="w-100" />
+                        {% else %}
+                        <img src="{% static './quanta/images/no_product.png' %}" alt="prduct" class="w-100">
+                        {% endif %}
+                        <a href="{% url 'display_list' active_listing.id %}">
+                            <div class="mask">
+                                <div class="d-flex justify-content-start align-items-end h-100">
+                                    <h5><span class="badge bg-danger ms-2">New</span></h5>
+                                </div>
+                            </div>
+                            <div class="hover-overlay">
+                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'display_list' active_listing.id %}" class="text-center">
+                            <h5 class="card-title mb-3">{{ active_listing.item_name }}</h5>
+                        </a>
+                        <a href="{% url 'display_list' active_listing.id %}" class="text-center">
+                            <p>{{ active_listing.category }}</p>
+                        </a>
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'display_list' active_listing.id %}" class="btn btn-primary mr-2">view</a>
+                            <h6 class="mt-2 text-right">₱{{ active_listing.starting_price }}</h6>
                         </div>
-                        <h4>{{ active_listing.item_name }}</h4>
-                        <p>Created at: {{ active_listing.created_at }}</p>
-                        <a href="{% url 'display_list' active_listing.id %}" class="btn btn-primary mr-2">view</a>
-  
+
                     </div>
                 </div>
-                {% endfor %}
             </div>
-
+            {% endfor %}
         </div>
+
+    </div>
+
+</div>
 
 </div>
 
