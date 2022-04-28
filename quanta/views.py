@@ -312,7 +312,9 @@ def my_favorites(request):
         'user_add_to_favorites': user_add_to_favorites,
         'my_cart_count':my_cart_count
     })
-    
+
+def payment_page(request):
+    return render(request,"quanta/payment_page.html")
     
 def createlist(request):
     user = request.user
