@@ -52,10 +52,11 @@ def contact(request):
         message_email = request.POST['contact_email']
         message = request.POST['contact_message']
 
+        messages.success(request,"Message Sent!")
         send_mail(
             message_subj,
             'Hi I am '+message_name+ " \n"+message + '\n\n' +'from '+ message_email,
-            'from@gmail.com',
+            message_email,
             ['lamirageinnandsuite@gmail.com'],
             fail_silently=False,)
         
