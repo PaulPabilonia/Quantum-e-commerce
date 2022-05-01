@@ -22,9 +22,10 @@
                 onchange='if(this.value != 0) { this.form.submit(); }'>
                 <option disabled selected value>Select Category</option>
                 <option value="fashion">Fashion</option>
-                <option value="cars">Cars</option>
-                <option value="toys">Toys</option>
-                <option value="home">Homes</option>
+                <option value="gadgets">Gadgets</option>
+                <option value="appliances">Appliances</option>
+                <option value="toys">Toys & Accessories</option>
+                <option value="others">Others</option>
             </select>
 
         </form>
@@ -35,10 +36,9 @@
                     <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
                         data-mdb-ripple-color="light">
                         {% if active_listing.product_img %}
-                        <img src="{{ active_listing.product_img.url }}"
-                            class="w-100" />
+                        <img src="{{ active_listing.product_img.url }}" class="w-100" />
                         {% else %}
-                        <img src="{% static './quanta/images/no_product.png' %}" alt="prduct" class="w-100" >
+                        <img src="{% static './quanta/images/no_product.png' %}" alt="prduct" class="w-100">
                         {% endif %}
                         <a href="{% url 'display_list' active_listing.id %}">
                             <div class="mask">
@@ -62,7 +62,7 @@
                             <a href="{% url 'display_list' active_listing.id %}" class="btn btn-primary mr-2">view</a>
                             <h6 class="mt-2 text-right">₱{{ active_listing.starting_price }}</h6>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
