@@ -48,23 +48,25 @@
             <div class="modal-body text-start text-black p-4">
               <h5 class="modal-title text-capitalize mb-2" id="exampleModalLabel">{{ user.first_name }} {{ user.last_name }}</h5>
               <h4 class="mb-2" style="color: #35558a;">Thanks for your order</h4>
-              <p class="fw-bold mb-0">Address: {{ user.address }}</p>
-              <p class="fw-bold mb-0">Contact No.: {{ user.phone_no }}</p>
-              <p class="fw-bold mb-0">Mode of Payment.: Cash on Delivery</p>
+              <p class="fw-bold mb-0">Address:
+              <span class="fw-normal">{{ user.street_no }} {{ user.address }} {{ user.postal_code }}</span>
+              </p>
+              <p class="fw-bold mb-0">Contact No : <span class="fw-normal" >{{ user.phone_no }}</span></p>
+              <p class="fw-bold mb-0">Mode of Payment: <span class="fw-normal" >Cash on Delivery</span> </p>
               <p class="mb-0" style="color: #35558a;">Payment summary</p>
               <hr class="mt-2 mb-4"
                 style="height: 0; background-color: transparent; opacity: .75; border-top: 2px dashed #9e9e9e;">
-                <div class="d-flex justify-content-between">
-                  <p class="fw-bold mb-0">Items:</p>
-                  <p class="text-muted mb-0">{{ my_cart_count }}</p>
-                </div>
+              <div class="d-flex justify-content-between">
+                <p class="fw-bold mb-0">Items:</p>
+                <p class="text-muted mb-0">{{ my_cart_count }}</p>
+              </div>
               {% for active_listing in user_add_to_cart %}
               <div class="d-flex justify-content-between">
                 <p class="fw-bold mb-0">{{ active_listing.item_name }}(Qty:1)</p>
                 <p class="text-muted mb-0">₱ {{ active_listing.starting_price }}</p>
               </div>
               {% endfor %}
-              
+
               <div class="d-flex justify-content-between mt-2">
                 <p class="small mb-0">Subtotal</p>
                 <p class="small mb-0">₱ {{ subtotal }}</p>
@@ -82,7 +84,8 @@
 
             </div>
             <div class="modal-footer d-flex justify-content-center border-top-0 py-2">
-              <button type="button" class="btn btn-primary btn-lg mb-1" data-mdb-dismiss="modal" style="background-color: #35558a;">
+              <button type="button" class="btn btn-primary btn-lg mb-1" data-mdb-dismiss="modal"
+                style="background-color: #35558a;">
                 Confirm Order
               </button>
             </div>
@@ -102,7 +105,8 @@
         <div class="d-flex justify-content-between align-items-center h-100 card-header ">
           <h4 class="mb-0 text-capitalize">Thanks for your Order <span style="color: #35558a;">{{ user.first_name }}</span>!</h4>
           <!-- Button trigger modal -->
-          <button type="button" class=" btn btn-light " data-mdb-toggle="modal" style="color: #35558a;" data-mdb-target="#exampleModal">
+          <button type="button" class=" btn btn-light " data-mdb-toggle="modal" style="color: #35558a;"
+            data-mdb-target="#exampleModal">
             <i class="fas fa-info me-2" style="color: #35558a;"></i> Get Purchase Reciept
           </button>
 
@@ -119,8 +123,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-2">
-                  <img src="{{ active_listing.product_img.url }}"
-                    class="img-fluid" alt="Phone">
+                  <img src="{{ active_listing.product_img.url }}" class="img-fluid" alt="Phone">
                 </div>
                 <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
                   <p class="text-muted mb-0">{{ active_listing.item_name }}</p>

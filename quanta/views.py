@@ -243,6 +243,8 @@ def update_details(request, user_id):
         user_profile.nationality = request.POST.get("nationality")
         user_profile.phone_no = request.POST.get("phone_no")
         user_profile.address = request.POST.get("address")
+        user_profile.street_no = request.POST.get("street_no")
+        user_profile.postal_code = request.POST.get("postal_code")
         user_profile.save()
         messages.success(request, "Profile Updated Successfully!")
         return HttpResponseRedirect(

@@ -11,6 +11,8 @@ class User(AbstractUser):
     nationality= models.CharField(max_length=200, null=True)
     address =  models.CharField(max_length=200, null=True)
     pictures = models.ImageField(null=True, blank = True, upload_to = "images/")
+    street_no =  models.CharField(max_length=200, null=True)
+    postal_code =  models.CharField(max_length=200, null=True)
 
         
 class ShoppingList(models.Model):
@@ -31,8 +33,21 @@ class ShoppingList(models.Model):
     #auto_now = the date when you modifed/update a listings
     update_at = models.DateTimeField(auto_now=True)
 
-    def _str_(self):
-        return f"{self.owner}:{self.bid}"
+    def __str__(self):
+        return f"{self.owner} : {self.item_name}"
+
+class CheckoutOrder(models.Model):
+    #cutomer ordered
+    customer = models.ForeignKey(User, on_delete=models.CASCADE,related_name="customerCheckoutOrder")
+    #mode of payment
+    mop = models.CharField(max_length=20)
+    #product ordered Shoppinglist
+    products = models.ForeignKey(ShoppingList, on_delete=models.CASCADE, related_name="productsCheckoutOrder")
+    #time when the ordered was add
+    ordered_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.customer
 
 class Comments(models.Model):
     #commentor is basically the user that logged in it is link to the User model/table
@@ -43,3 +58,6 @@ class Comments(models.Model):
     text = models.CharField(max_length=600)
     #time when the comment was add
     comment_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.commentor.username} : {self.text}"

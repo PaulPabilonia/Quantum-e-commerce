@@ -21,11 +21,10 @@
       <div class="card mb-4">
         <div class="card-body text-center">
           {% if user.pictures %}
-          <img src="{{ user.pictures.url }}" alt="Admin" class="rounded-circle img-fluid"
-            style="width: 150px;">
+          <img src="{{ user.pictures.url }}" alt="Admin" class="rounded-circle img-fluid" style="width: 150px;">
           {% elif user.is_authenticated %}
-          <img src="{% static './quanta/images/default_profile.png' %}" alt="avatar"
-            class="rounded-circle img-fluid" style="width: 150px;">
+          <img src="{% static './quanta/images/default_profile.png' %}" alt="avatar" class="rounded-circle img-fluid"
+            style="width: 150px;">
           {% endif %}
           <h2 class="my-3">{{ user.first_name }} {{ user.last_name }}</h2>
           <p class="text-muted mb-1">@{{ user.username }}</p>
@@ -74,15 +73,15 @@
     <div class="col-lg-8">
       <div class="card mb-4">
         <div class="card-body">
-          <form class="needs-validation" action="{% url 'update_details' user.id %}" method="POST" enctype="multipart/form-data" novalidate>
+          <form class="needs-validation" action="{% url 'update_details' user.id %}" method="POST"
+            enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             <div class="row">
               <div class="col-sm-3">
                 <p class="mb-0">Username</p>
               </div>
               <div class="col-sm-9">
-                <input type="text" name="username" class="form-control text-muted" value="{{ user.username }}"
-                  required>
+                <input type="text" name="username" class="form-control text-muted" value="{{ user.username }}" required>
               </div>
             </div>
             <div class="row">
@@ -90,8 +89,8 @@
                 <p class="mb-0">First Name</p>
               </div>
               <div class="col-sm-9">
-                <input type="text" name="first_name" class="form-control text-muted text-capitalize" value="{{ user.first_name }}"
-                  required>
+                <input type="text" name="first_name" class="form-control text-muted text-capitalize"
+                  value="{{ user.first_name }}" required>
               </div>
             </div>
             <div class="row">
@@ -99,8 +98,8 @@
                 <p class="mb-0">Last Name</p>
               </div>
               <div class="col-sm-9">
-                <input type="text" name="last_name" class="form-control text-muted text-capitalize" value="{{ user.last_name }}"
-                  required>
+                <input type="text" name="last_name" class="form-control text-muted text-capitalize"
+                  value="{{ user.last_name }}" required>
               </div>
             </div>
             <div class="row">
@@ -116,8 +115,7 @@
                 <p class="mb-0">Phone</p>
               </div>
               <div class="col-sm-9">
-                <input type="text" name="phone_no" class="form-control text-muted"
-                  value="{{ user.phone_no}}" required>
+                <input type="text" name="phone_no" class="form-control text-muted" value="{{ user.phone_no}}" required>
               </div>
             </div>
             <div class="row">
@@ -125,8 +123,8 @@
                 <p class="mb-0">Nationality</p>
               </div>
               <div class="col-sm-9">
-                <input type="text" name="nationality" class="form-control text-muted"
-                  value="{{ user.nationality }}" required>
+                <input type="text" name="nationality" class="form-control text-muted" value="{{ user.nationality }}"
+                  required>
               </div>
             </div>
             <div class="row">
@@ -134,10 +132,24 @@
                 <p class="mb-0">Address</p>
               </div>
               <div class="col-sm-9">
-                <input type="text" name="address" class="form-control text-muted" value="{{ user.address }}"
-                  required>
+                <input type="text" name="address" class="form-control text-muted" value="{{ user.address }}" required>
               </div>
             </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="">
+                  <label class="form-label" for="typeExp">Street No.</label>
+                  <input type="text" name="street_no"  class="form-control" value="{{ user.street_no }}"   />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="">
+                  <label class="form-label" for="typeText">Postal Code</label>
+                  <input type="text"  name="postal_code" class="form-control" value="{{ user.postal_code }}" />
+                </div>
+              </div>
+            </div>
+
             <div class="row">
               <div class="col-sm-3">
               </div>

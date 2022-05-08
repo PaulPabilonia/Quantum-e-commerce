@@ -77,14 +77,15 @@
                                         <form class="mt-4">
                                             <div class="">
                                                 <label class="form-label " for="typeName">Name</label>
-                                                <input type="text" id="typeName" class="form-control form-control-md"
-                                                    siez="17" placeholder="Cardholder's Name" />
+                                                <input type="text" id="typeName" class="form-control form-control-md text-capitalize"
+                                                    siez="17" placeholder="Name" value="{{ user.first_name }} {{ user.last_name}}"/>
                                             </div>
 
                                             <div class="">
                                                 <label class="form-label" for="typeText">Contact Number</label>
                                                 <input type="text" id="typeText" class=" form-control form-control-lg"
-                                                    siez="17" placeholder="000222" minlength="19" maxlength="19" />
+                                                    siez="17" placeholder="Contact Number" minlength="19" value="{{ user.phone_no }}"
+                                                    maxlength="19" />
                                             </div>
 
                                             <div class="row">
@@ -92,31 +93,32 @@
                                                     <div class="">
                                                         <label class="form-label" for="typeExp">Street No.</label>
                                                         <input type="text" id="typeExp"
-                                                            class="form-control form-control-lg" placeholder="0449"
-                                                            size="7" id="exp" minlength="7" maxlength="7" />
+                                                            class="form-control form-control-lg" placeholder="ex. 0449" value="{{ user.street_no }}" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="">
                                                         <label class="form-label" for="typeText">Postal Code</label>
                                                         <input type="text" id="typeText"
-                                                            class="form-control form-control-lg" placeholder="4008" />
+                                                            class="form-control form-control-lg"
+                                                            placeholder="ex. 4008" value="{{ user.postal_code }}"/>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="">
                                                 <label class="form-label" for="typeText">Adress</label>
                                                 <input type="text" id="typeText" class=" form-control form-control-lg"
-                                                    siez="17" placeholder="000222" minlength="19" maxlength="19" />
+                                                    siez="17" placeholder="ex. Pinagsanjan, Pagsanjan, Laguna" value="{{ user.address }}"
+                                                    minlength="10" maxlength="100" />
                                             </div>
                                             <label class="form-label" for="typeText">Mode of Payment</label>
-                                            <div class="btn-group" role="group">
-                                                <button type="button" class="btn btn-info" name="mop">Online
-                                                    Payment</button>
-                                                <button type="button" class="btn btn-info" name="mop">Cash on
-                                                    Delivery</button>
+                                            <div>
+                                                <select name="mop" class="form-select custom-select col-md-7 ">
+                                                    <option value="Cash on Delivery">Cash on Delivery</option>
+                                                    <option value="Online Payment">Online Payment</option>
+                                                </select>
                                             </div>
-
                                         </form>
 
                                         <hr class="my-4">
