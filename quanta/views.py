@@ -338,6 +338,7 @@ def finish(request):
         subtotal = subtotal + active_listing.starting_price
     total = 20 + subtotal
     my_cart_count = user.added_to_cart.all().count()
+    messages.success(request, "Ordered Successfully!")
     return render(request, "quanta/finish_page.html",{
         'user_add_to_cart': user_add_to_cart,
         'my_cart_count':my_cart_count,
