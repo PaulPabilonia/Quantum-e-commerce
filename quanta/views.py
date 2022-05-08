@@ -291,6 +291,28 @@ def add_to_cart(request,user_id):
     user = request.user
     # items = ShoppingList.objects.get(pk = user_id)
     # total = user.added_to_cart.starting_price.count()
+    
+    subtotal = 0
+    user_add_to_cart = user.added_to_cart.all()
+    
+    for active_listing in user_add_to_cart:
+        print('items added to cart: ')
+        print(active_listing)
+        subtotal = subtotal + active_listing.starting_price
+        
+    total = 20 + subtotal
+    my_cart_count = user.added_to_cart.all().count()
+    return render(request, "quanta/add_to_cart.html",{
+        'user_add_to_cart': user_add_to_cart,
+        'my_cart_count':my_cart_count,
+        'subtotal':subtotal,
+        'total':total
+    })
+
+def checkout(request): 
+    user = request.user
+    # items = ShoppingList.objects.get(pk = user_id)
+    # total = user.added_to_cart.starting_price.count()
     print('Total: ')
     subtotal = 0
     user_add_to_cart = user.added_to_cart.all()
@@ -298,7 +320,25 @@ def add_to_cart(request,user_id):
         subtotal = subtotal + active_listing.starting_price
     total = 20 + subtotal
     my_cart_count = user.added_to_cart.all().count()
-    return render(request, "quanta/add_to_cart.html",{
+    return render(request, "quanta/checkout_page.html",{
+        'user_add_to_cart': user_add_to_cart,
+        'my_cart_count':my_cart_count,
+        'subtotal':subtotal,
+        'total':total
+    })
+
+def finish(request): 
+    user = request.user
+    # items = ShoppingList.objects.get(pk = user_id)
+    # total = user.added_to_cart.starting_price.count()
+    print('Total: ')
+    subtotal = 0
+    user_add_to_cart = user.added_to_cart.all()
+    for active_listing in user_add_to_cart:
+        subtotal = subtotal + active_listing.starting_price
+    total = 20 + subtotal
+    my_cart_count = user.added_to_cart.all().count()
+    return render(request, "quanta/finish_page.html",{
         'user_add_to_cart': user_add_to_cart,
         'my_cart_count':my_cart_count,
         'subtotal':subtotal,

@@ -177,19 +177,19 @@
                             <button class="btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
-                                <span class="count bg-danger">13</span>
+                                <span class="count bg-danger">3</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">You have 3 Notification</p>
-                                <a class="dropdown-item media" href="#">
+                                <a class="dropdown-item media notif" href="#">
                                     <i class="fa fa-check"></i>
                                     <p>Server #1 overloaded.</p>
                                 </a>
-                                <a class="dropdown-item media" href="#">
+                                <a class="dropdown-item media notif" href="#">
                                     <i class="fa fa-info"></i>
                                     <p>Server #2 overloaded.</p>
                                 </a>
-                                <a class="dropdown-item media" href="#">
+                                <a class="dropdown-item media notif" href="#">
                                     <i class="fa fa-warning"></i>
                                     <p>Server #3 overloaded.</p>
                                 </a>
@@ -358,12 +358,12 @@
 
                         <div class="text-center text-muted delimiter">or use a social network</div>
                         <div class="d-flex justify-content-center social-buttons">
-                            <button type="button" class="btn btn-secondary btn-round btns" data-toggle="tooltip"
+                            <button type="button" class="btn btn-round btns" data-toggle="tooltip"
                                 data-placement="top" title="Google">
                                 <a href="{% provider_login_url "google" method="oauth2" %}"><i
                                         class="fab fa-google"></i></a>
                             </button>
-                            <button type="button" class="btn btn-secondary btn-round btns" data-toggle="tooltip"
+                            <button type="button" class="btn btn-round btns" data-toggle="tooltip"
                                 data-placement="top" title="Facebook">
                                 <a href="{% provider_login_url "google" %}"><i class="fab fa-facebook"></i></a>
                             </button>
