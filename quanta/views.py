@@ -38,6 +38,7 @@ def quanta_home(request):
     user = request.user
     if user.is_authenticated:
         my_cart_count = user.added_to_cart.all().count()
+        my_ship_count = user.customerCheckoutOrder.all().count() 
     else:
         my_cart_count = 0
          
@@ -45,6 +46,7 @@ def quanta_home(request):
     return render(request, "quanta/home_page.html",{
             "active_listings": active_listings,
             "my_cart_count":my_cart_count,
+            "my_ship_count":my_ship_count,
         })
 
 def contact(request):
@@ -121,6 +123,7 @@ def display_list(request, listing_id):
     user = request.user
     if user.is_authenticated:
         my_cart_count = user.added_to_cart.all().count()
+        my_ship_count = user.customerCheckoutOrder.all().count() 
     else:
         my_cart_count = 0
     listing_in_user_add_to_cart = request.user in listing.add_to_cart.all()
@@ -131,7 +134,8 @@ def display_list(request, listing_id):
         'listing_in_user_favorites':listing_in_user_favorites,
         'listing_owner': listing_owner,
         'comments':comments,
-        'my_cart_count':my_cart_count
+        'my_cart_count':my_cart_count,
+        'my_ship_count':my_ship_count
     })
 
 def add_add_to_cart(request, listing_id):
@@ -215,6 +219,7 @@ def closed_auction(request, listing_id):
 def view_profile(request,user_id):
     user = request.user
     my_cart_count = user.added_to_cart.all().count()
+    my_ship_count = user.customerCheckoutOrder.all().count() 
     print(user)
     #fix UserProfile and delete it 
     userProfiles = User.objects.get(pk=user_id)
@@ -222,7 +227,8 @@ def view_profile(request,user_id):
     return render(request, "quanta/profile_page.html",{
         "listing":listing,
         'my_cart_count':my_cart_count,
-        'userProfiles':userProfiles
+        'userProfiles':userProfiles,
+        'my_ship_count':my_ship_count
         })
 
 def update_details(request, user_id):
@@ -271,8 +277,13 @@ def user_products(request):
     user = request.user
     print(user)
     my_cart_count = user.added_to_cart.all().count()
+    my_ship_count = user.customerCheckoutOrder.all().count() 
     listing = ShoppingList.objects.filter(owner = user)
-    return render(request, "quanta/my_products.html",{"listing":listing,'my_cart_count':my_cart_count})
+    return render(request, "quanta/my_products.html",{
+        "listing":listing,
+        'my_cart_count':my_cart_count,
+        'my_ship_count':my_ship_count
+    })
 # def place_bid(request,listing_id):
 #     if request.method == 'POST':
 #         listing = ShoppingList.objects.get(pk= listing_id)
@@ -305,11 +316,13 @@ def add_to_cart(request,user_id):
         
     total = 20 + subtotal
     my_cart_count = user.added_to_cart.all().count()
+    my_ship_count = user.customerCheckoutOrder.all().count() 
     return render(request, "quanta/add_to_cart.html",{
         'user_add_to_cart': user_add_to_cart,
         'my_cart_count':my_cart_count,
         'subtotal':subtotal,
-        'total':total
+        'total':total,
+        'my_ship_count':my_ship_count
     })
 
 def checkout(request): 
@@ -323,11 +336,13 @@ def checkout(request):
         subtotal = subtotal + active_listing.starting_price
     total = 20 + subtotal
     my_cart_count = user.added_to_cart.all().count()
+    my_ship_count = user.customerCheckoutOrder.all().count() 
     return render(request, "quanta/checkout_page.html",{
         'user_add_to_cart': user_add_to_cart,
         'my_cart_count':my_cart_count,
         'subtotal':subtotal,
-        'total':total
+        'total':total,
+        'my_ship_count':my_ship_count
     })
 
 def finish(request):
@@ -345,7 +360,7 @@ def finish(request):
             ordered.product_ordered.add(active_listing)
             subtotal = subtotal + active_listing.starting_price
         total = 20 + subtotal
-        
+        my_ship_count = user.customerCheckoutOrder.all().count() 
         my_cart_count = user.added_to_cart.all().count()
         ordered_items = ordered.product_ordered.all()
         messages.success(request, "Ordered Successfully!")
@@ -354,16 +369,52 @@ def finish(request):
             'my_cart_count':my_cart_count,
             'subtotal':subtotal,
             'total':total,
-            'ordered_items':ordered_items
+            'ordered_items':ordered_items,
+            'ordered': ordered,
+            'my_ship_count':my_ship_count
         })
+
+def ship_page(request):
+    user = request.user
+        
+    ordered = CheckoutOrder.objects.filter(customer = user)
+    my_ship_count = user.customerCheckoutOrder.all().count()   
+
+    subtotal = 0
+    user_add_to_cart = user.added_to_cart.all()
+    for active_listing in user_add_to_cart:
+        print("list: ",active_listing)
+        subtotal = subtotal + active_listing.starting_price
+    total = 20 + subtotal
+
+    
+    for order in ordered:
+        items = order.product_ordered.all()
+        print(items)
+        for item in items:
+            print('items', item)
+
+    my_cart_count = user.added_to_cart.all().count()
+    
+    ordered_items = ordered.all()
+    return render(request, "quanta/ship_page.html",{
+        'user_add_to_cart': user_add_to_cart,
+        'my_cart_count':my_cart_count,
+        'subtotal':subtotal,
+        'total':total,
+        'ordered_items':ordered_items,
+        'my_ship_count':my_ship_count
+    })
 
 def my_favorites(request): 
     user = request.user
     user_add_to_favorites = user.added_to_favorite.all()
     my_cart_count = user.added_to_cart.all().count()
+    my_ship_count = user.customerCheckoutOrder.all().count() 
     return render(request, "quanta/add_to_favorites.html",{
         'user_add_to_favorites': user_add_to_favorites,
-        'my_cart_count':my_cart_count
+        'my_cart_count':my_cart_count,
+        'my_ship_count':my_ship_count
     })
 
 def payment_page(request):
@@ -373,10 +424,12 @@ def createlist(request):
     user = request.user
     if user.is_authenticated:
         my_cart_count = user.added_to_cart.all().count()
+        my_ship_count = user.customerCheckoutOrder.all().count() 
     else:
         my_cart_count = 0
     return render(request, "quanta/createlist.html",{
-        'my_cart_count':my_cart_count
+        'my_cart_count':my_cart_count,
+        'my_ship_count':my_ship_count
     })
 
 
@@ -385,11 +438,13 @@ def all_list(request):
     user = request.user
     if user.is_authenticated:
         my_cart_count = user.added_to_cart.all().count()
+        my_ship_count = user.customerCheckoutOrder.all().count()   
     else:
         my_cart_count = 0
     return render(request, "quanta/all_list.html",{
         'all_listings': all_listings,
-        'my_cart_count':my_cart_count
+        'my_cart_count':my_cart_count,
+        'my_ship_count': my_ship_count
     })
 
 def login_view(request):

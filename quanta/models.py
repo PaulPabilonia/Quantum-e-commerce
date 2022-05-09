@@ -52,9 +52,9 @@ class CheckoutOrder(models.Model):
 
 class Comments(models.Model):
     #commentor is basically the user that logged in it is link to the User model/table
-    commentor = models.ForeignKey(User, on_delete=models.CASCADE,related_name="commentsCommentor")
+    commentor = models.ForeignKey(User, on_delete=models.CASCADE,related_name="comments")
     #listing is the listings in Shoppinglist
-    listings = models.ForeignKey(ShoppingList, on_delete=models.CASCADE, related_name="commentsListings")
+    listings = models.ForeignKey(ShoppingList, on_delete=models.CASCADE, related_name="comments")
     #text is the comments/message of the commentor/user.
     text = models.CharField(max_length=600)
     #time when the comment was add

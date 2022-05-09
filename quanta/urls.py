@@ -23,6 +23,7 @@ urlpatterns = [
     path("payment_page",views.payment_page,name="payment_page"),
     path("checkout",views.checkout,name="checkout"),
     path("finish",views.finish,name="finish"),
+    path("ship_page",views.ship_page,name="ship_page"),
 
     #profile
     path("view_profile/<int:user_id>",views.view_profile,name="view_profile"),
