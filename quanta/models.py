@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.db.models.query_utils import select_related_descend
 
+
 #AbstractUser automatic creating model and add some fields for the User
 # Ex. username, password, email, firstname,lastname and etc.
 class User(AbstractUser):
@@ -42,18 +43,18 @@ class CheckoutOrder(models.Model):
     #mode of payment
     mop = models.CharField(max_length=20)
     #product ordered Shoppinglist
-    products = models.ForeignKey(ShoppingList, on_delete=models.CASCADE, related_name="productsCheckoutOrder")
+    product_ordered = models.ManyToManyField(ShoppingList, blank=True, related_name="productsCheckoutOrder")
     #time when the ordered was add
-    ordered_time = models.DateTimeField(auto_now_add=True)
+    ordered_time = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.customer
+        return f"{self.customer} : {self.mop}"
 
 class Comments(models.Model):
     #commentor is basically the user that logged in it is link to the User model/table
-    commentor = models.ForeignKey(User, on_delete=models.CASCADE,related_name="comments")
+    commentor = models.ForeignKey(User, on_delete=models.CASCADE,related_name="commentsCommentor")
     #listing is the listings in Shoppinglist
-    listings = models.ForeignKey(ShoppingList, on_delete=models.CASCADE, related_name="comments")
+    listings = models.ForeignKey(ShoppingList, on_delete=models.CASCADE, related_name="commentsListings")
     #text is the comments/message of the commentor/user.
     text = models.CharField(max_length=600)
     #time when the comment was add

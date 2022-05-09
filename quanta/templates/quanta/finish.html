@@ -52,7 +52,7 @@
               <span class="fw-normal">{{ user.street_no }} {{ user.address }} {{ user.postal_code }}</span>
               </p>
               <p class="fw-bold mb-0">Contact No : <span class="fw-normal" >{{ user.phone_no }}</span></p>
-              <p class="fw-bold mb-0">Mode of Payment: <span class="fw-normal" >Cash on Delivery</span> </p>
+              <p class="fw-bold mb-0">Mode of Payment: <span class="fw-normal" >{{ ordered.mop }}</span> </p>
               <p class="mb-0" style="color: #35558a;">Payment summary</p>
               <hr class="mt-2 mb-4"
                 style="height: 0; background-color: transparent; opacity: .75; border-top: 2px dashed #9e9e9e;">
@@ -118,7 +118,7 @@
             <p class="small text-muted mb-0">Receipt Voucher : 1KAU9-84UIL</p>
           </div>
 
-          {% for active_listing in user_add_to_cart %}
+          {% for active_listing in ordered_items %}
           <div class="card shadow-0 border mb-4">
             <div class="card-body">
               <div class="row">

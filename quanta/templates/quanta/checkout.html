@@ -74,18 +74,21 @@
                                         <a href="#!" type="submit" class="text-dark"><i
                                                 class="fab fa-cc-paypal fa-2x"></i></a>
 
-                                        <form class="mt-4">
+                                        <form action="{% url 'finish' %}" class="mt-4" method="post">
+                                            {% csrf_token %}
                                             <div class="">
                                                 <label class="form-label " for="typeName">Name</label>
-                                                <input type="text" id="typeName" class="form-control form-control-md text-capitalize"
-                                                    siez="17" placeholder="Name" value="{{ user.first_name }} {{ user.last_name}}"/>
+                                                <input type="text" id="typeName"
+                                                    class="form-control form-control-md text-capitalize" siez="17"
+                                                    placeholder="Name"
+                                                    value="{{ user.first_name }} {{ user.last_name}}" />
                                             </div>
 
                                             <div class="">
                                                 <label class="form-label" for="typeText">Contact Number</label>
                                                 <input type="text" id="typeText" class=" form-control form-control-lg"
-                                                    siez="17" placeholder="Contact Number" minlength="19" value="{{ user.phone_no }}"
-                                                    maxlength="19" />
+                                                    siez="17" placeholder="Contact Number" minlength="19"
+                                                    value="{{ user.phone_no }}" maxlength="19" />
                                             </div>
 
                                             <div class="row">
@@ -93,15 +96,16 @@
                                                     <div class="">
                                                         <label class="form-label" for="typeExp">Street No.</label>
                                                         <input type="text" id="typeExp"
-                                                            class="form-control form-control-lg" placeholder="ex. 0449" value="{{ user.street_no }}" />
+                                                            class="form-control form-control-lg" placeholder="ex. 0449"
+                                                            value="{{ user.street_no }}" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="">
                                                         <label class="form-label" for="typeText">Postal Code</label>
                                                         <input type="text" id="typeText"
-                                                            class="form-control form-control-lg"
-                                                            placeholder="ex. 4008" value="{{ user.postal_code }}"/>
+                                                            class="form-control form-control-lg" placeholder="ex. 4008"
+                                                            value="{{ user.postal_code }}" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -109,8 +113,8 @@
                                             <div class="">
                                                 <label class="form-label" for="typeText">Adress</label>
                                                 <input type="text" id="typeText" class=" form-control form-control-lg"
-                                                    siez="17" placeholder="ex. Pinagsanjan, Pagsanjan, Laguna" value="{{ user.address }}"
-                                                    minlength="10" maxlength="100" />
+                                                    siez="17" placeholder="ex. Pinagsanjan, Pagsanjan, Laguna"
+                                                    value="{{ user.address }}" minlength="10" maxlength="100" />
                                             </div>
                                             <label class="form-label" for="typeText">Mode of Payment</label>
                                             <div>
@@ -119,9 +123,10 @@
                                                     <option value="Online Payment">Online Payment</option>
                                                 </select>
                                             </div>
-                                        </form>
 
-                                        <hr class="my-4">
+
+
+                                            <hr class="my-4">
 
                                     </div>
                                 </div>
@@ -155,13 +160,9 @@
                                             </li>
                                         </ul>
 
-                                        <a href="{% url 'finish' %}" class="btn btn-info btn-block btn-lg">
-                                            <div class="d-flex justify-content-between">
-                                                <span>₱ {{ total }}</span>
-                                                <span>Place Order <i
-                                                        class="fas fa-long-arrow-alt-right ms-2"></i></span>
-                                            </div>
-                                        </a>
+                                        <input type="submit" class="btn btn-info btn-block btn-lg"
+                                            value="₱ {{ total }} Place Order">
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="card mb-4">
@@ -189,7 +190,6 @@
 
 
                             </div>
-
                         </div>
 
                     </div>

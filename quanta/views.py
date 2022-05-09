@@ -1,5 +1,6 @@
 #for creating and logging user
 import email
+from itertools import product
 from django.contrib.auth import authenticate, login, logout
 #intergrityerror for no ducplicate or repeated user
 from django.db import IntegrityError
@@ -12,9 +13,10 @@ from django.shortcuts import render
 from django.urls import reverse
 #for messages alerts
 from django.contrib import messages
-from .models import User, ShoppingList, Comments
+from .models import User, ShoppingList, Comments, CheckoutOrder
 from django.db.models import Sum
 from django.core.mail import send_mail
+import datetime
 
 def index(request):
     """
@@ -293,7 +295,6 @@ def add_to_cart(request,user_id):
     user = request.user
     # items = ShoppingList.objects.get(pk = user_id)
     # total = user.added_to_cart.starting_price.count()
-    
     subtotal = 0
     user_add_to_cart = user.added_to_cart.all()
     
@@ -329,24 +330,32 @@ def checkout(request):
         'total':total
     })
 
-def finish(request): 
-    user = request.user
-    # items = ShoppingList.objects.get(pk = user_id)
-    # total = user.added_to_cart.starting_price.count()
-    print('Total: ')
-    subtotal = 0
-    user_add_to_cart = user.added_to_cart.all()
-    for active_listing in user_add_to_cart:
-        subtotal = subtotal + active_listing.starting_price
-    total = 20 + subtotal
-    my_cart_count = user.added_to_cart.all().count()
-    messages.success(request, "Ordered Successfully!")
-    return render(request, "quanta/finish_page.html",{
-        'user_add_to_cart': user_add_to_cart,
-        'my_cart_count':my_cart_count,
-        'subtotal':subtotal,
-        'total':total
-    })
+def finish(request):
+    if request.method == "POST": 
+        user = request.user
+        mop = request.POST['mop']
+        
+        ordered = CheckoutOrder(customer = user, mop = mop)
+        ordered.save()
+        
+        subtotal = 0
+        user_add_to_cart = user.added_to_cart.all()
+        for active_listing in user_add_to_cart:
+            print("list: ",active_listing)
+            ordered.product_ordered.add(active_listing)
+            subtotal = subtotal + active_listing.starting_price
+        total = 20 + subtotal
+        
+        my_cart_count = user.added_to_cart.all().count()
+        ordered_items = ordered.product_ordered.all()
+        messages.success(request, "Ordered Successfully!")
+        return render(request, "quanta/finish_page.html",{
+            'user_add_to_cart': user_add_to_cart,
+            'my_cart_count':my_cart_count,
+            'subtotal':subtotal,
+            'total':total,
+            'ordered_items':ordered_items
+        })
 
 def my_favorites(request): 
     user = request.user
