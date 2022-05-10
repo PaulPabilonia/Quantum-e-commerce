@@ -41,7 +41,7 @@ def quanta_home(request):
         my_ship_count = user.customerCheckoutOrder.all().count() 
     else:
         my_cart_count = 0
-         
+        my_ship_count = 0 
     active_listings = ShoppingList.objects.filter(is_closed=False)
     return render(request, "quanta/home_page.html",{
             "active_listings": active_listings,
@@ -126,6 +126,8 @@ def display_list(request, listing_id):
         my_ship_count = user.customerCheckoutOrder.all().count() 
     else:
         my_cart_count = 0
+        my_ship_count = 0 
+
     listing_in_user_add_to_cart = request.user in listing.add_to_cart.all()
     listing_in_user_favorites = request.user in listing.favorite.all()
     return render(request, "quanta/display_list.html",{
@@ -238,11 +240,10 @@ def update_details(request, user_id):
 
         print(request.POST)
 
-        user.username = request.POST.get("username")
-        user.email = request.POST.get("email")
-        user.first_name = request.POST.get("first_name")
-        user.last_name = request.POST.get("last_name")
-        user.save()
+        user_profile.username = request.POST.get("username")
+        user_profile.email = request.POST.get("email")
+        user_profile.first_name = request.POST.get("first_name")
+        user_profile.last_name = request.POST.get("last_name")
 
         # if len(request.FILES) != 0:
         #     if len(user_profile.profile_img) > 0:
@@ -427,6 +428,7 @@ def createlist(request):
         my_ship_count = user.customerCheckoutOrder.all().count() 
     else:
         my_cart_count = 0
+        my_ship_count = 0 
     return render(request, "quanta/createlist.html",{
         'my_cart_count':my_cart_count,
         'my_ship_count':my_ship_count
@@ -441,6 +443,8 @@ def all_list(request):
         my_ship_count = user.customerCheckoutOrder.all().count()   
     else:
         my_cart_count = 0
+        my_ship_count = 0 
+
     return render(request, "quanta/all_list.html",{
         'all_listings': all_listings,
         'my_cart_count':my_cart_count,
