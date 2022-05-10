@@ -1,1 +1,1 @@
-web: gunicorn Quantum.wsgi
+web: gunicorn Quantum.wsgi.application --log-file - --log-level debug
