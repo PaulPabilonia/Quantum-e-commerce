@@ -1,1 +1,1 @@
-web: gunicorn quantum.wsgi
+web: gunicorn quantum.wsgi --log-file -
