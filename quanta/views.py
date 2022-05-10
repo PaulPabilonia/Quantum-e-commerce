@@ -44,7 +44,7 @@ def quanta_home(request):
         my_ship_count = 0 
     active_listings = ShoppingList.objects.filter(is_closed=False)
     return render(request, "quanta/home_page.html",{
-            "active_listings": active_listings,
+            "active_listings":active_listings,
             "my_cart_count":my_cart_count,
             "my_ship_count":my_ship_count,
         })
