@@ -43,6 +43,7 @@
                 <p class="fw-bold mb-0">Items:</p>
                 <p class="text-muted mb-0">{{ my_cart_count }}</p>
               </div>
+              
               {% for active_listing in user_add_to_cart %}
               <div class="d-flex justify-content-between">
                 <p class="fw-bold mb-0">{{ active_listing.item_name }}(Qty:1)</p>
