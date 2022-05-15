@@ -18,7 +18,7 @@
 
           <div class="text-center bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
             {% if listing.product_img %}
-            <img src="{{ listing.product_img.url }}" class="img-fluid rounded-start" alt="Url Pictures">
+            <img src="{{ listing.product_img.url }}" class="img-fluid rounded-start" alt="{{ listing.product_img.url }}">
             {% else %}
             <img src="{% static './quanta/images/no_product.png' %}" alt="Admin" class="img-fluid rounded-start">
             {% endif %}

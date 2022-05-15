@@ -59,13 +59,13 @@ def contact(request):
         messages.success(request,"Message Sent!")
         send_mail(
             message_subj,
-            'Hi I am '+message_name+ " \n"+message + '\n\n' +'from '+ message_email,
+            'Hi I am '+message_name+ ", \n"+message + '\n\n' +'from '+ message_email,
             message_email,
-            ['lamirageinnandsuite@gmail.com'],
+            ['quantumtechcompanyy@gmail.com'],
             fail_silently=False,)
         
-        return render(request, "quanta/home.html",{
-        })
+        return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect(reverse("index"))
 
 def submit_listings(request):
     if request.method == "POST":
