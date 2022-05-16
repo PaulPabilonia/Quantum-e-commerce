@@ -55,6 +55,10 @@ INSTALLED_APPS = [
 
     #local app
     'quanta',
+
+    #cloudinary
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -137,6 +141,17 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+#cloudinary config
+CLOUDINARY_STORAGE = {
+  'CLOUD_NAME' : "drmz2x7tb", 
+  'API_KEY' : "477885697163549", 
+  'API_SECRET' : "HAl-lZ485Mf6hjTxe-lHieoIrYk"
+}
+
+
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
