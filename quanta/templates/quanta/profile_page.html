@@ -47,24 +47,20 @@
         <div class="card-body p-0">
           <ul class="list-group list-group-flush rounded-3">
             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <i class="fas fa-globe fa-lg text-warning"></i>
-              <p class="mb-0">https://mdbootstrap.com</p>
+              <i class="fas fa-envelope fa-lg text-primary"></i>
+              <p class="mb-0">{{ user.email }}</p>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <i class="fab fa-github fa-lg" style="color: #333333;"></i>
-              <p class="mb-0">mdbootstrap</p>
+              <i class="fas fa-user-plus fa-lg text-primary"></i>
+              <p class="mb-0">@{{ user.username }}</p>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-              <p class="mb-0">@mdbootstrap</p>
+              <i class="fas fa-user fa-lg text-primary"></i>
+              <p class="mb-0">{{ user.first_name }} {{ user.last_name }}</p>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-              <p class="mb-0">mdbootstrap</p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-              <p class="mb-0">mdbootstrap</p>
+              <i class="fas fa-location-arrow fa-lg text-primary"></i>
+              <p class="mb-0">{{ user.address }}</p>
             </li>
           </ul>
         </div>
@@ -158,106 +154,10 @@
           </form>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card mb-4 mb-md-0">
-            <div class="card-body">
-              <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status</p>
-              <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-              <div class="progress rounded" style="height: 5px;">
-                <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0"
-                  aria-valuemax="100"></div>
-              </div>
-              <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-              <div class="progress rounded" style="height: 5px;">
-                <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0"
-                  aria-valuemax="100"></div>
-              </div>
-              <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-              <div class="progress rounded" style="height: 5px;">
-                <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0"
-                  aria-valuemax="100"></div>
-              </div>
-              <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-              <div class="progress rounded" style="height: 5px;">
-                <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0"
-                  aria-valuemax="100"></div>
-              </div>
-              <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-              <div class="progress rounded mb-2" style="height: 5px;">
-                <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0"
-                  aria-valuemax="100"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card mb-4 mb-md-0">
-            <div class="card-body">
-              <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status</p>
-              <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-              <div class="progress rounded" style="height: 5px;">
-                <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0"
-                  aria-valuemax="100"></div>
-              </div>
-              <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-              <div class="progress rounded" style="height: 5px;">
-                <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0"
-                  aria-valuemax="100"></div>
-              </div>
-              <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-              <div class="progress rounded" style="height: 5px;">
-                <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0"
-                  aria-valuemax="100"></div>
-              </div>
-              <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-              <div class="progress rounded" style="height: 5px;">
-                <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0"
-                  aria-valuemax="100"></div>
-              </div>
-              <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-              <div class="progress rounded mb-2" style="height: 5px;">
-                <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0"
-                  aria-valuemax="100"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
 
 {% include 'quanta/user_products.html' %}
-<!-- <section id="services" class="section">
-  <div class="container">
-    <div class="section-header">          
-      <h2 class="section-title">My Products</h2>
-      <span>Quanta!</span>
-      <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy</p>
-    </div>
 
-    <div class="row">
-      {% for active_listing in listing %}
-      <div class="col-lg-4 col-md-6 col-xs-12">
-        <div class="item-boxes services-item wow fadeInDown" data-wow-delay="0.2s">
-          <div class="icon color-1">
-              {% if active_listing.product_img %}
-              <img src="{{ active_listing.product_img.url }}" class="" alt="Url Pictures" width="200"
-                  height="200">
-              {% else %}
-              <img src="{% static './quanta/images/background-logo.svg' %}" alt="Admin" class="" width="200" height="200">
-              {% endif %}
-          </div>
-          <h4>{{ active_listing.item_name}}</h4>
-          <p>Created at: {{ active_listing.created_at }}</p>
-          <a href="{% url 'display_list' active_listing.id %}" class="btn btn-primary mr-2">view</a>
-          <a class="btn btn-danger" >Add to cart</a>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-
-  </div>
-</section> -->
 {% endblock%}

@@ -159,7 +159,7 @@ a:not([href]):not([tabindex]):hover {
 }
 
 .section-header span {
-  font-size: 60px;
+  font-size: 35px;
   color: rgba(0, 0, 0, 0.07);
   z-index: 2;
   font-family: 'Montserrat', sans-serif;
