@@ -10,7 +10,9 @@ body {
 #checkout page
 --------------------------------------------------------------*/
 
-  
+.right-panel header.header .top-right {
+  padding: 0px !important;
+}
   #progressbar-1 {
   color: #455A64;
   }
