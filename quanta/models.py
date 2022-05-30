@@ -27,6 +27,8 @@ class ShoppingList(models.Model):
     #blank = true / basically it accepts even it is blank or empty it simple means it is not required
     add_to_cart = models.ManyToManyField(User, blank=True, related_name="added_to_cart")
     favorite = models.ManyToManyField(User, blank=True, related_name="added_to_favorite")
+    #orders from all users
+    orders = models.ManyToManyField(User, blank=True, related_name="added_to_orders")
     #using BooleanField to know if the listings is close or not/ sold
     is_closed = models.BooleanField(default=False, null=True,blank= True)
     #auto_now_add = a start date you first add a listings
@@ -38,6 +40,7 @@ class ShoppingList(models.Model):
         return f"{self.owner} : {self.item_name}"
 
 class CheckoutOrder(models.Model):
+    checkout_id = models.CharField(max_length=20)
     #cutomer ordered
     customer = models.ForeignKey(User, on_delete=models.CASCADE,related_name="customerCheckoutOrder")
     #mode of payment

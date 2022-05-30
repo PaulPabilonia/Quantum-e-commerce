@@ -6,6 +6,25 @@
    2. GENERAL
    ========================================================================== */
 
+
+/*--------------------------------------------------------------
+# scroll
+--------------------------------------------------------------*/
+.main-body::-webkit-scrollbar {
+  width: 8px;
+  background-color: #F5F5F5;
+}
+
+
+.main-body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(104, 140, 240, 0.3);
+}
+
+.main-body::-webkit-scrollbar-thumb {
+  background-color: silver;
+  outline: 1px solid silver;
+}   
+
 .copyright{
   color: #546E7A;
 }

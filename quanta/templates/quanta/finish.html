@@ -115,7 +115,7 @@
         <div class="card-body p-4">
           <div class="d-flex justify-content-between align-items-center mb-4">
             <p class="lead fw-normal mb-0" style="color: #35558a;">Receipt</p>
-            <p class="small text-muted mb-0">Receipt Voucher : 1KAU9-84UIL</p>
+            <p class="small text-muted mb-0">Receipt Voucher : {{ ordered.checkout_id }}</p>
           </div>
 
           {% for active_listing in ordered_items %}

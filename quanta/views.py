@@ -18,6 +18,9 @@ from django.db.models import Sum
 from django.core.mail import send_mail
 import datetime
 
+import random
+import string
+
 def index(request):
     """
     ShoppingList.object.filter it filter all the listings
@@ -230,7 +233,7 @@ def view_profile(request,user_id):
         "listing":listing,
         'my_cart_count':my_cart_count,
         'userProfiles':userProfiles,
-        'my_ship_count':my_ship_count
+        'my_ship_count':my_ship_count,
         })
 
 def update_details(request, user_id):
@@ -346,12 +349,17 @@ def checkout(request):
         'my_ship_count':my_ship_count
     })
 
+#generate ID
+def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+
 def finish(request):
     if request.method == "POST": 
         user = request.user
         mop = request.POST['mop']
-        
-        ordered = CheckoutOrder(customer = user, mop = mop)
+        checkout_id = id_generator()
+        ordered = CheckoutOrder(checkout_id= checkout_id, customer = user, mop = mop)
         ordered.save()
         
         subtotal = 0
@@ -359,6 +367,7 @@ def finish(request):
         for active_listing in user_add_to_cart:
             print("list: ",active_listing)
             ordered.product_ordered.add(active_listing)
+            active_listing.orders.add(user)
             subtotal = subtotal + active_listing.starting_price
         total = 20 + subtotal
         my_ship_count = user.customerCheckoutOrder.all().count() 
