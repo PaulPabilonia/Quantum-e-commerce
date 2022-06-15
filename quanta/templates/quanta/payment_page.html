@@ -1,16 +1,18 @@
 {% extends "quanta/layouts.html" %}
 {% load static %}
 {% block head %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+
 {% endblock %}
+
 {% block body %}
 
-<!-- choosing a category will only show all the active list form that category
-    Ex. cars 
-        only all cars that are listed will show/display -->
-{% include 'quanta/messages.html' %}
+{% include 'quanta/messages_transaction.html' %}
 
 <div class="container">
-  <a href="{% url 'index' %}" class="btn btn-secondary bg-secondary bg-gradient text-white mt-5"><i class="fas fa-long-arrow-alt-left me-2"></i>Go Back</a>
+  <a href="{% url 'index' %}" class="btn btn-secondary bg-secondary bg-gradient text-white mt-5"><i
+      class="fas fa-long-arrow-alt-left me-2"></i>Go Back</a>
   <div class="py-5 text-center">
     <img class="d-block mx-auto mb-4" src="/static/quanta/images/quantum_logo.png" alt="">
     <h2>Checkout form</h2>
@@ -20,41 +22,37 @@
   <div class="row">
     <div class="col-md-4 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-muted">Your cart</span>
-        <span class="badge badge-secondary badge-pill">3</span>
+        <span class="text-muted">Your Plan</span>
+        <span class="badge badge-secondary badge-pill">Subscribe Now</span>
       </h4>
       <ul class="list-group mb-3">
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">Product name</h6>
-            <small class="text-muted">Brief description</small>
+            <h6 class="my-0">Starter Plan</h6>
+            <small class="text-muted">First Product</small>
           </div>
-          <span class="text-muted">$12</span>
+          <span class="text-muted">₱ Free</span>
         </li>
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
             <h6 class="my-0">Second product</h6>
-            <small class="text-muted">Brief description</small>
+            <small class="text-muted">Second product</small>
           </div>
-          <span class="text-muted">$8</span>
+          <span class="text-muted">₱ 999.99</span>
         </li>
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">Third item</h6>
-            <small class="text-muted">Brief description</small>
+            <h6 class="my-0">Third Product</h6>
+            <small class="text-muted">Third Product</small>
           </div>
-          <span class="text-muted">$5</span>
+          <span class="text-muted">₱ 2999.99</span>
         </li>
         <li class="list-group-item d-flex justify-content-between bg-light">
           <div class="text-success">
             <h6 class="my-0">Promo code</h6>
             <small>EXAMPLECODE</small>
           </div>
-          <span class="text-success">-$5</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span>Total (USD)</span>
-          <strong>$20</strong>
+          <span class="text-success">-₱50</span>
         </li>
       </ul>
 
@@ -69,7 +67,9 @@
     </div>
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Billing address</h4>
-      <form class="needs-validation" novalidate>
+
+      <form class="needs-validation" action="{% url 'payment_checkout' %}" method="POST" novalidate>
+        {% csrf_token %}
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">First name</label>
@@ -195,7 +195,7 @@
           </div>
         </div>
         <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+        <input class="btn btn-primary btn-lg btn-block" type="submit" value=" Continue to Checkout">
       </form>
     </div>
   </div>
@@ -209,11 +209,13 @@
     </ul>
   </footer>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
   integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
 <script src="/docs/4.5/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 <script src="form-validation.js"></script>
+<script src="{% static 'quanta/app.js' %}"></script>
 
 {% endblock %}

@@ -429,6 +429,11 @@ def my_favorites(request):
 
 def payment_page(request):
     return render(request,"quanta/payment_page.html")
+
+def payment_checkout(request):
+    if request.method == "POST":
+        messages.success(request, "Transaction Succefully!")
+        return HttpResponseRedirect(reverse("quanta_home"))
     
 def createlist(request):
     user = request.user

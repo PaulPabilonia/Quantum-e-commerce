@@ -24,6 +24,7 @@ urlpatterns = [
     path("checkout",views.checkout,name="checkout"),
     path("finish",views.finish,name="finish"),
     path("ship_page",views.ship_page,name="ship_page"),
+    path("payment_checkout",views.payment_checkout,name="payment_checkout"),
 
     #profile
     path("view_profile/<int:user_id>",views.view_profile,name="view_profile"),
