@@ -15,7 +15,8 @@ from django.urls import reverse
 from django.contrib import messages
 from .models import User, ShoppingList, Comments, CheckoutOrder
 from django.db.models import Sum
-from django.core.mail import send_mail
+from django.core.mail import send_mail,send_mass_mail
+from django.template import loader
 import datetime
 
 import random
@@ -58,14 +59,29 @@ def contact(request):
         message_subj = request.POST['contact_subject']
         message_email = request.POST['contact_email']
         message = request.POST['contact_message']
+        html_message = loader.render_to_string(
+            'quanta/email_message.html',
+            {
+                'message_name': message_name
+            }
+        )
 
-        messages.success(request,"Message Sent!")
+        messages.success(request,"We Recieved your Message! Please Wait for Response")
         send_mail(
             message_subj,
             'Hi I am '+message_name+ ", \n"+message + '\n\n' +'from '+ message_email,
             message_email,
             ['quantumtechcompanyy@gmail.com'],
             fail_silently=False,)
+
+        send_mail(
+            message_subj,
+            'Hi I am '+message_name+ ", \n"+message + '\n\n' +'from '+ message_email,
+            'quantumtechcompanyy@gmail.com',
+            [message_email],
+            fail_silently=False,
+            html_message=html_message)
+
         
         return HttpResponseRedirect(reverse("index"))
     return HttpResponseRedirect(reverse("index"))
