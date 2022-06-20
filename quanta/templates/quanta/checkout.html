@@ -87,7 +87,7 @@
                                             <div class="">
                                                 <label class="form-label" for="typeText">Contact Number</label>
                                                 <input type="text" id="typeText" class=" form-control form-control-lg"
-                                                    siez="17" placeholder="Contact Number" minlength="19"
+                                                    siez="17" placeholder="Contact Number" minlength="19" name="phone_no"
                                                     value="{{ user.phone_no }}" maxlength="19" />
                                             </div>
 
@@ -97,6 +97,7 @@
                                                         <label class="form-label" for="typeExp">Street No.</label>
                                                         <input type="text" id="typeExp"
                                                             class="form-control form-control-lg" placeholder="ex. 0449"
+                                                            name="street_no"
                                                             value="{{ user.street_no }}" />
                                                     </div>
                                                 </div>
@@ -105,6 +106,7 @@
                                                         <label class="form-label" for="typeText">Postal Code</label>
                                                         <input type="text" id="typeText"
                                                             class="form-control form-control-lg" placeholder="ex. 4008"
+                                                            name="postal_code"
                                                             value="{{ user.postal_code }}" />
                                                     </div>
                                                 </div>
@@ -113,7 +115,7 @@
                                             <div class="">
                                                 <label class="form-label" for="typeText">Adress</label>
                                                 <input type="text" id="typeText" class=" form-control form-control-lg"
-                                                    siez="17" placeholder="ex. Pinagsanjan, Pagsanjan, Laguna"
+                                                    siez="17" placeholder="ex. Pinagsanjan, Pagsanjan, Laguna" name="address"
                                                     value="{{ user.address }}" minlength="10" maxlength="100" />
                                             </div>
                                             <label class="form-label" for="typeText">Mode of Payment</label>
@@ -168,7 +170,7 @@
                                 <div class="card mb-4">
                                     <div class="card-body">
                                         <p><strong>Expected shipping delivery</strong></p>
-                                        <p class="mb-0">12.10.2020 - 14.10.2020</p>
+                                        <p class="mb-0">{{ today }} - {{ threedays }}</p>
                                     </div>
                                 </div>
                                 <div class="card mb-4 mb-lg-0">

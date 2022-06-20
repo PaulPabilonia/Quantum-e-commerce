@@ -357,12 +357,16 @@ def checkout(request):
     total = 20 + subtotal
     my_cart_count = user.added_to_cart.all().count()
     my_ship_count = user.customerCheckoutOrder.all().count() 
+    today = datetime.date.today()
+    threedays = today + datetime.timedelta(days=3)
     return render(request, "quanta/checkout_page.html",{
         'user_add_to_cart': user_add_to_cart,
         'my_cart_count':my_cart_count,
         'subtotal':subtotal,
         'total':total,
-        'my_ship_count':my_ship_count
+        'my_ship_count':my_ship_count,
+        'today':today,
+        'threedays':threedays,
     })
 
 #generate ID
@@ -373,6 +377,12 @@ def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
 def finish(request):
     if request.method == "POST": 
         user = request.user
+        user.phone_no = request.POST.get("phone_no")
+        user.address = request.POST.get("address")
+        user.street_no = request.POST.get("street_no")
+        user.postal_code = request.POST.get("postal_code")
+        user.save()
+
         mop = request.POST['mop']
         checkout_id = id_generator()
         ordered = CheckoutOrder(checkout_id= checkout_id, customer = user, mop = mop)
@@ -380,16 +390,38 @@ def finish(request):
         
         subtotal = 0
         user_add_to_cart = user.added_to_cart.all()
+        #this add all the products in ordered
         for active_listing in user_add_to_cart:
             print("list: ",active_listing)
             ordered.product_ordered.add(active_listing)
             active_listing.orders.add(user)
             subtotal = subtotal + active_listing.starting_price
+
         total = 20 + subtotal
         my_ship_count = user.customerCheckoutOrder.all().count() 
         my_cart_count = user.added_to_cart.all().count()
         ordered_items = ordered.product_ordered.all()
         messages.success(request, "Ordered Successfully!")
+        today = datetime.date.today()
+        threedays = today + datetime.timedelta(days=3)
+        html_message = loader.render_to_string(
+            'quanta/email_transaction.html',
+            {
+                'message_name': user.first_name + user.last_name,
+                'checkout_id':checkout_id,
+                'total': total,
+                'today' : today,
+                'threedays': threedays,
+                'ordered_items':ordered_items,
+            }
+        )
+        send_mail(
+            "Quanta: Product Ordered",
+            'Your order will be shipped in 3 days:',
+            'quantumtechcompanyy@gmail.com',
+            [user.email],
+            fail_silently=False,
+            html_message=html_message)
         return render(request, "quanta/finish_page.html",{
             'user_add_to_cart': user_add_to_cart,
             'my_cart_count':my_cart_count,
